@@ -1,45 +1,71 @@
 import React from 'react';
-import { Search, Bell, History } from 'lucide-react';
+import { Search, Bell, History, RotateCcw } from 'lucide-react';
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+} from '@/components/ui/dropdown-menu';
+import { useStore } from '@/lib/store';
+import { toast } from 'sonner';
 
 export default function TopBar() {
+  const resetAll = useStore((s) => s.resetAll);
+
+  function handleReset() {
+    resetAll();
+    toast.success('Demo reset', {
+      description: 'All approvals, dismissals and selections cleared.',
+    });
+  }
+
   return (
-    <header className="fixed top-0 right-0 h-14 w-[calc(100%-240px)] bg-white/80 backdrop-blur-md border-b border-slate-200 z-40 flex justify-between items-center px-8 shadow-[0px_1px_2px_rgba(0,0,0,0.05)]">
+    <header className="fixed top-0 right-0 h-14 w-[calc(100%-240px)] bg-white/80 backdrop-blur-md border-b border-graphite-100 z-40 flex justify-between items-center px-8 card-shadow">
       <div className="flex items-center gap-8">
         <div className="relative group">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 w-4 h-4" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-graphite-400 w-4 h-4" strokeWidth={1.5} />
           <input 
             type="text"
-            className="pl-9 pr-4 py-1.5 bg-slate-50 border-0 rounded text-sm w-80 focus:ring-2 focus:ring-primary-container/20 placeholder:text-slate-400 outline-none"
+            className="pl-9 pr-4 py-1.5 bg-graphite-50 border-0 rounded-lg text-sm w-80 focus:ring-2 focus:ring-indigo-100 placeholder:text-graphite-400 outline-none"
             placeholder="Search SKU, order or supplier..."
           />
         </div>
         <nav className="flex items-center gap-6">
-          <a href="#" className="text-sm font-semibold text-primary border-b-2 border-primary pb-1 h-14 flex items-center">Overview</a>
-          <a href="#" className="text-sm font-medium text-slate-500 hover:text-slate-900 transition-all">Alerts</a>
-          <a href="#" className="text-sm font-medium text-slate-500 hover:text-slate-900 transition-all">Reports</a>
+          <a href="#" className="text-sm font-semibold text-indigo-400 border-b-2 border-indigo-400 pb-1 h-14 flex items-center">Overview</a>
+          <a href="#" className="text-sm font-medium text-graphite-500 hover:text-graphite-900 transition-all">Alerts</a>
+          <a href="#" className="text-sm font-medium text-graphite-500 hover:text-graphite-900 transition-all">Reports</a>
         </nav>
       </div>
 
       <div className="flex items-center gap-4">
-        <div className="flex items-center gap-2 border-r border-slate-200 pr-4 mr-2">
-          <button className="p-2 text-slate-500 hover:text-primary transition-all">
-            <Bell className="w-5 h-5" />
+        <div className="flex items-center gap-1 border-r border-graphite-200 pr-4 mr-2">
+          <button className="p-2 text-graphite-400 hover:text-indigo-400 transition-all rounded-lg hover:bg-graphite-50" aria-label="Notifications">
+            <Bell className="w-[18px] h-[18px]" strokeWidth={1.5} />
           </button>
-          <button className="p-2 text-slate-500 hover:text-primary transition-all">
-            <History className="w-5 h-5" />
+          <button className="p-2 text-graphite-400 hover:text-indigo-400 transition-all rounded-lg hover:bg-graphite-50" aria-label="History">
+            <History className="w-[18px] h-[18px]" strokeWidth={1.5} />
           </button>
         </div>
         
-        <button className="px-4 py-1.5 border border-slate-200 text-sm font-medium rounded hover:bg-slate-50 transition-all">Export</button>
-        <button className="px-4 py-1.5 bg-primary text-white text-sm font-medium rounded hover:opacity-90 transition-all shadow-sm">Sync Data</button>
-        
-        <div className="w-8 h-8 rounded-full bg-slate-200 overflow-hidden ml-2 border border-slate-100">
-          <img 
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDg2n8AIUrdd_Lh9G3CrYe0On2dWvJ9YlDvUqiWKUx72erTcNTypaYqO_oyNp2kyRPCwP8F5oUs8ksudeX7NDe98_r1cpq-bGevSS8Sb6Va001Wshqd5t-NeQKaJdZgfG8HRKj0F6v7ZYHETOBOzuq9hhibPj5zcKCICIw8lHSmuc2GZSznfehb4UHj5sJ2mqGDI2_X0uT_UXMLzEfeaESEbTUE5NVnZCE6FKmV-yHll_St9Wzfa2lbHXs6DbCoUEOxepdRv7tXXE1Z" 
-            alt="User"
-            className="w-full h-full object-cover"
-          />
-        </div>
+        {/* Maya Chen avatar with dropdown */}
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <button className="w-8 h-8 rounded-full bg-indigo-400 flex items-center justify-center text-white text-xs font-bold tracking-tight hover:ring-2 hover:ring-indigo-200 transition-all focus:outline-none focus:ring-2 focus:ring-indigo-200">
+              MC
+            </button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end" className="w-48">
+            <DropdownMenuItem disabled className="text-graphite-400 text-xs font-semibold uppercase tracking-wider">
+              Maya Chen
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem onClick={handleReset} className="text-rose-600 focus:text-rose-700 focus:bg-rose-50 cursor-pointer">
+              <RotateCcw className="w-4 h-4 mr-2" strokeWidth={1.5} />
+              Reset demo
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
     </header>
   );

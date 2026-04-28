@@ -1,20 +1,40 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# StockAI Replenishment Redesign
 
-# Run and deploy your AI Studio app
+A working prototype redesigning the Replenishment feature of StockAI, a fictional retail intelligence SaaS. Built as a case study for [Foundey](https://foundey.com)'s Senior Product Designer placement program.
 
-This contains everything you need to run your app locally.
+## Why this exists
 
-View your app in AI Studio: https://ai.studio/apps/e8482da1-1e1f-4676-acd7-0916de93ddd1
+The brief asked for a Figma file. I built a working prototype too, because the design is about AI trust as a UI primitive, and that is hard to evaluate from a static frame.
 
-## Run Locally
+## Live URL
 
-**Prerequisites:**  Node.js
+https://stockai-replen.vercel.app
 
+## Figma file
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+[Public view-only link]
+
+## Stack
+
+React 19 · TypeScript · Vite 6 · Tailwind v4 · shadcn/ui · Motion · Lucide · Zustand · Vercel
+
+## Three experiences
+
+1. **Opportunity Dashboard** — AI-prioritized feed of 8 recommendations, ranked by impact
+2. **AI Recommendation Review** — single-SKU drawer with live what-if slider, 4 tabs, Ask AI panel
+3. **Bulk Approve Dialog** — aggregate impact preview before mass commit
+
+## The "Ask about this rec" feature
+
+A designed conversation simulator. Demonstrates how AI explainability would feel as a first-class UI primitive. Real Anthropic API integration is on the v1.1 roadmap.
+
+## Run locally
+
+```
+npm install
+npm run dev
+```
+
+## Author
+
+Luigi Simões · [luigi.is](https://luigi.is) · Senior Product Designer

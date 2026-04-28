@@ -10,7 +10,7 @@ interface LayoutProps {
 
 export default function Layout({ children, activeTab, onTabChange }: LayoutProps) {
   return (
-    <div className="min-h-screen bg-[#FAFAFA]">
+    <div className="min-h-screen bg-snow">
       <Sidebar activeTab={activeTab} onTabChange={onTabChange} />
       <TopBar />
       <main className="ml-[240px] pt-14 h-screen overflow-auto">
