@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { 
   LayoutGrid, 
   Package, 
@@ -7,6 +8,7 @@ import {
   Lightbulb,
   Settings, 
   HelpCircle,
+  ArrowLeft,
 } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { Tooltip, TooltipTrigger, TooltipContent } from '@/components/ui/tooltip';
@@ -29,6 +31,13 @@ const navItems = [
 export default function Sidebar({ activeTab, onTabChange }: SidebarProps) {
   return (
     <aside className="fixed left-0 top-0 h-screen w-[240px] border-r border-graphite-100 bg-white z-50 flex flex-col py-6 px-4">
+      <Link 
+        to="/" 
+        className="flex items-center gap-1.5 text-[11px] font-medium text-graphite-400 hover:text-indigo-500 transition-colors mb-4 px-2"
+      >
+        <ArrowLeft className="w-3 h-3" strokeWidth={2} />
+        <span>Back to case study</span>
+      </Link>
       <div className="flex items-center gap-3 px-2 mb-8">
         <div className="w-8 h-8 rounded-lg bg-indigo-400 flex items-center justify-center">
           <Package className="text-white w-4.5 h-4.5" strokeWidth={1.5} />

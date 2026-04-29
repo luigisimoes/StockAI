@@ -1,10 +1,19 @@
-import {StrictMode} from 'react';
-import {createRoot} from 'react-dom/client';
-import App from './App.tsx';
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import CaseStudyPage from './pages/CaseStudyPage';
+import AppPage from './pages/AppPage';
+import { Toaster } from '@/components/ui/sonner';
 import './index.css';
 
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
+ReactDOM.createRoot(document.getElementById('root')!).render(
+  <React.StrictMode>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<CaseStudyPage />} />
+        <Route path="/app" element={<AppPage />} />
+      </Routes>
+      <Toaster />
+    </BrowserRouter>
+  </React.StrictMode>
 );
