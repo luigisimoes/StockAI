@@ -31,10 +31,27 @@ export default function TopBar() {
             placeholder="Search SKU, order or supplier..."
           />
         </div>
-        <nav className="flex items-center gap-6">
-          <a href="#" className="text-sm font-semibold text-indigo-400 border-b-2 border-indigo-400 pb-1 h-14 flex items-center">Overview</a>
-          <a href="#" className="text-sm font-medium text-graphite-500 hover:text-graphite-900 transition-all">Alerts</a>
-          <a href="#" className="text-sm font-medium text-graphite-500 hover:text-graphite-900 transition-all">Reports</a>
+        <nav className="flex items-center gap-6 h-full">
+          {[
+            { id: 'overview', label: 'Overview', active: true },
+            { id: 'alerts', label: 'Alerts', active: false },
+            { id: 'reports', label: 'Reports', active: false },
+          ].map((tab) => (
+            <a
+              key={tab.id}
+              href="#"
+              className={`relative h-full flex items-center text-sm transition-colors ${
+                tab.active
+                  ? 'text-indigo-400 font-semibold'
+                  : 'text-graphite-500 hover:text-graphite-900 font-medium'
+              }`}
+            >
+              {tab.label}
+              {tab.active && (
+                <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-indigo-400" />
+              )}
+            </a>
+          ))}
         </nav>
       </div>
 
