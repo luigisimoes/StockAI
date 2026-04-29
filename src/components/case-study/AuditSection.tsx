@@ -28,9 +28,11 @@ export default function AuditSection() {
               <p className="text-[10px] uppercase tracking-widest font-bold text-graphite-400 mb-2 px-1">
                 Brief screen {i + 1}
               </p>
-              <div className="w-full h-40 rounded-lg border border-graphite-100 bg-graphite-50 flex items-center justify-center">
-                <span className="text-[11px] text-graphite-400 font-mono">Screen {i + 1} — see brief</span>
-              </div>
+              <img 
+                src={`/audit-screenshots/${step}.png`} 
+                alt={`Brief screen ${i + 1}`}
+                className="w-full h-auto rounded-lg border border-graphite-100"
+              />
             </div>
           ))}
         </div>
