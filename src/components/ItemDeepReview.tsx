@@ -66,7 +66,7 @@ export default function ItemDeepReview({ itemId, onClose }: ItemDeepReviewProps)
 
   return (
     <Sheet open={true} onOpenChange={(v) => !v && onClose()}>
-      <SheetContent side="right" className="w-[800px] max-w-full p-0 flex flex-col [&>button]:hidden" aria-describedby={undefined}>
+      <SheetContent side="right" className="w-[880px] max-w-full p-0 flex flex-col [&>button]:hidden" aria-describedby={undefined}>
         <SheetTitle className="sr-only">{rec.title} — AI Recommendation Review</SheetTitle>
         {/* Close button */}
         <button
@@ -103,8 +103,12 @@ export default function ItemDeepReview({ itemId, onClose }: ItemDeepReviewProps)
                 <span className="text-graphite-400 text-[10px] font-bold uppercase tracking-widest font-mono">Model v3.4</span>
               </div>
               <h2 className="font-display text-xl font-bold text-graphite-900">{rec.title}</h2>
-              <p className="text-xs text-graphite-500 font-medium font-mono">
-                SKU: {rec.sku} · {rec.description.split(' • ')[0]} · <span className="text-graphite-400">Last synced 2m ago</span>
+              <p className="text-xs text-graphite-500 font-medium font-mono leading-relaxed">
+                <span className="whitespace-nowrap">SKU: {rec.sku}</span>
+                <span className="mx-1.5 text-graphite-300">·</span>
+                <span className="whitespace-nowrap">{rec.description.split(' · ')[0]}</span>
+                <span className="mx-1.5 text-graphite-300">·</span>
+                <span className="whitespace-nowrap text-graphite-400">Last synced 2m ago</span>
               </p>
             </div>
           </div>
@@ -137,12 +141,12 @@ export default function ItemDeepReview({ itemId, onClose }: ItemDeepReviewProps)
             {/* Stats Grid — floating white cards */}
             <div className="grid grid-cols-4 gap-4 flex-shrink-0">
               <div className="p-4 bg-white border border-graphite-100 card-shadow rounded-xl">
-                <p className="text-[10px] font-bold text-graphite-400 uppercase tracking-widest mb-2">Recommended action</p>
+                <p className="text-[10px] font-bold text-graphite-400 uppercase tracking-widest mb-2 leading-tight">Recommended action</p>
                 <p className="text-xl font-display font-bold text-indigo-400 tabular-nums">{baseUnits > 0 ? '+' : ''}{baseUnits.toLocaleString()} units</p>
                 <p className="text-[11px] text-graphite-500 mt-2 font-medium">{rec.statCard.nextRestockGap}</p>
               </div>
               <div className="p-4 bg-white border border-graphite-100 card-shadow rounded-xl">
-                <p className="text-[10px] font-bold text-graphite-400 uppercase tracking-widest mb-2">Projected revenue</p>
+                <p className="text-[10px] font-bold text-graphite-400 uppercase tracking-widest mb-2 leading-tight">Projected revenue</p>
                 <p className={cn("text-xl font-display font-bold tabular-nums", rec.baseImpact >= 0 ? "text-emerald-600" : "text-rose-600")}>
                   {rec.baseImpact >= 0 ? '+' : '-'}${(Math.abs(rec.baseImpact) / 1000).toFixed(1)}K
                 </p>
@@ -152,14 +156,14 @@ export default function ItemDeepReview({ itemId, onClose }: ItemDeepReviewProps)
                 </div>
               </div>
               <div className="p-4 bg-white border border-graphite-100 card-shadow rounded-xl">
-                <p className="text-[10px] font-bold text-graphite-400 uppercase tracking-widest mb-2">Days of cover</p>
+                <p className="text-[10px] font-bold text-graphite-400 uppercase tracking-widest mb-2 leading-tight">Days of cover</p>
                 <div className="text-xl font-display font-bold text-graphite-900 tabular-nums flex items-baseline gap-2">
                   {rec.statCard.daysOfCoverCurrent} <ArrowRight className="w-3 h-3 text-graphite-300" strokeWidth={1.5} /> {rec.statCard.daysOfCoverProjected}
                 </div>
                 <p className="text-[11px] text-graphite-500 mt-2 font-medium">Target: {rec.statCard.coverTarget} days</p>
               </div>
               <div className="p-4 bg-rose-50 border border-rose-100 card-shadow rounded-xl">
-                <p className="text-[10px] font-bold text-rose-500 uppercase tracking-widest mb-2">If you don't act</p>
+                <p className="text-[10px] font-bold text-rose-500 uppercase tracking-widest mb-2 leading-tight">If you don't act</p>
                 <p className="text-xl font-display font-bold text-rose-600 tabular-nums">
                   {isOverstock ? '' : '-'}${(Math.abs(rec.baseImpact) / 1000).toFixed(0)}K
                 </p>
@@ -231,15 +235,15 @@ export default function ItemDeepReview({ itemId, onClose }: ItemDeepReviewProps)
                         <CheckCircle className="w-3.5 h-3.5 text-emerald-500" strokeWidth={2} />
                         Constraints checked
                       </h3>
-                      <div className="space-y-3">
+                      <div className="space-y-2.5">
                         {rec.constraints.map((c) => (
-                          <div key={c.label} className="flex items-center gap-3 text-[13px] font-medium text-graphite-600">
+                          <div key={c.label} className="flex items-start gap-2.5 text-[12px] font-medium text-graphite-600 leading-snug">
                             {c.status === 'pass' ? (
-                              <CheckCircle className="w-4 h-4 text-emerald-500 shrink-0" strokeWidth={1.5} />
+                              <CheckCircle className="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5" strokeWidth={2} />
                             ) : (
-                              <AlertTriangle className="w-4 h-4 text-amber-500 shrink-0" strokeWidth={1.5} />
+                              <AlertTriangle className="w-3.5 h-3.5 text-amber-500 shrink-0 mt-0.5" strokeWidth={2} />
                             )}
-                            {c.label}
+                            <span>{c.label}</span>
                           </div>
                         ))}
                       </div>

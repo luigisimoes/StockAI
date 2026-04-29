@@ -130,31 +130,38 @@ export default function AskAiPanel({ recId, activeTab }: AskAiPanelProps) {
     >
       {!isExpanded ? (
         /* ─── COLLAPSED STATE ─── */
-        <div className="flex items-center justify-between px-5 h-[60px]">
-          <div className="flex items-center gap-2.5">
+        <div className="flex items-center gap-3 px-5 h-[60px]">
+          {/* Left: icon + label (fixed minimum width) */}
+          <div className="flex items-center gap-2.5 flex-shrink-0">
             <div className="relative">
               <div className="w-7 h-7 rounded-lg bg-indigo-400 flex items-center justify-center">
                 <Sparkles className="w-3.5 h-3.5 text-white" strokeWidth={2} />
               </div>
               <div className="absolute -top-0.5 -right-0.5 w-2 h-2 bg-yellow-300 rounded-full animate-pulse" />
             </div>
-            <span className="text-sm font-bold text-graphite-900">AI Co-Pilot</span>
-            <span className="text-[11px] text-graphite-500 font-medium hidden sm:inline">Ready to explain this rec</span>
+            <span className="text-sm font-bold text-graphite-900 whitespace-nowrap">AI Co-Pilot</span>
           </div>
 
-          <div className="flex items-center gap-2">
+          {/* Middle: status text — hidden on tight widths */}
+          <span className="text-[11px] text-graphite-500 font-medium whitespace-nowrap hidden xl:inline">
+            Ready to explain this rec
+          </span>
+
+          {/* Right: chips + ask button */}
+          <div className="flex items-center gap-2 ml-auto flex-shrink-0">
             {suggestedChips.slice(0, 2).map((q) => (
               <button
                 key={q}
                 onClick={() => handleAsk(q)}
-                className="px-3 py-1.5 text-[11px] font-medium bg-white border border-indigo-200 text-indigo-700 rounded-full hover:bg-indigo-50 hover:border-indigo-300 transition-colors max-w-[200px] truncate"
+                className="px-3 py-1.5 text-[11px] font-medium bg-white border border-indigo-200 text-indigo-700 rounded-full hover:bg-indigo-50 hover:border-indigo-300 transition-colors whitespace-nowrap max-w-[200px] truncate"
+                title={q}
               >
                 {q}
               </button>
             ))}
             <button
               onClick={() => setIsExpanded(true)}
-              className="text-[11px] font-bold text-indigo-600 px-2 hover:text-indigo-700 transition-colors"
+              className="text-[11px] font-bold text-indigo-600 px-2 whitespace-nowrap hover:text-indigo-700 transition-colors"
             >
               Ask →
             </button>
