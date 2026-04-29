@@ -12,7 +12,7 @@ export default function Footer() {
               About this case study
             </p>
             <p className="text-sm text-graphite-300 leading-relaxed">
-              Designed and built by Luigi Simões as part of the Foundey Senior Product Designer challenge. 4 days, solo, PM + PD.
+              Built by Luigi Simões for the Foundey Senior Product Designer challenge. Four days, solo, PM and design.
             </p>
           </div>
           <div>

@@ -18,7 +18,7 @@ export default function HeroSection() {
         </h1>
 
         <p className="text-lg md:text-xl text-graphite-600 leading-relaxed max-w-[680px] mx-auto mb-10 font-medium">
-          A 4-day redesign of StockAI's core inventory feature, turning opaque AI recommendations into a transparent co-pilot inventory managers can actually trust.
+          Four days. One feature redesigned end to end. The brief asked for a transfer wizard; I delivered a co-pilot that shows its work, so an inventory manager can approve the call without leaving the page.
         </p>
 
         <div className="flex items-center justify-center gap-3">

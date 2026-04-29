@@ -1,13 +1,21 @@
 import React from 'react';
 import ExpandableSection from './ExpandableSection';
 
+const principles = [
+  { n: '01', title: 'Show the work', desc: 'Every rec carries its signals, constraints, and past comparisons up front.' },
+  { n: '02', title: 'Adjustable, not absolute', desc: 'Maya can override the units inline without losing the AI context.' },
+  { n: '03', title: 'Honest confidence', desc: 'Low-confidence recs say so. No false certainty.' },
+  { n: '04', title: 'Past decisions teach', desc: 'Surface similar past calls and what happened next.' },
+  { n: '05', title: 'AI on tap, not in the way', desc: 'The co-pilot is always there, never blocks the workflow.' },
+];
+
 export default function ProblemSection() {
   return (
     <ExpandableSection
       id="problem"
       eyebrow="01 · Problem framing"
       title="Inventory managers don't trust AI black boxes."
-      summary="StockAI's existing replenishment feature shows recommendations as numbers without context. Maya, a fictional senior inventory manager managing 1,200+ SKUs across 8 warehouses, has to decide on $4M of inventory adjustments daily, but the tool tells her nothing about why each rec exists. She defaults to spreadsheets. Stockouts hit 12% on bestsellers, $1.8M in carrying costs accumulate quarterly."
+      summary="The existing flow shows a recommended quantity and asks Maya to trust it. No signals, no constraints checked, no past comparisons. So she opens Excel, rebuilds the math, and approves what she already would have approved on her own. The AI is invisible labor she has to redo."
     >
       <div className="space-y-8">
         <div className="bg-indigo-50 border border-indigo-100 rounded-2xl p-8">
@@ -15,7 +23,7 @@ export default function ProblemSection() {
             The HMW question
           </p>
           <p className="font-display text-2xl text-graphite-900 leading-snug font-bold">
-            How might we make AI replenishment recommendations transparent and adjustable enough that inventory managers approve them in seconds, not spreadsheet hours?
+            How might we make every AI rec carry its reasoning, so Maya approves in 90 seconds instead of rebuilding the math in Excel?
           </p>
         </div>
 
@@ -25,18 +33,18 @@ export default function ProblemSection() {
             <h3 className="font-display text-xl font-bold text-graphite-900 mb-1">Maya Rodríguez</h3>
             <p className="text-sm text-graphite-500 mb-4">Senior Inventory Manager · 8 yrs</p>
             <p className="text-sm text-graphite-700 leading-relaxed">
-              Manages 1,200 SKUs across 8 warehouses. Has been burned by AI tools that recommended buying 6 months of summer dresses in October. Now defaults to her trusted Excel model.
+              1,200 SKUs, 8 warehouses, 8 years on the job. Got burned in 2023 when an AI tool told her to buy six months of summer dresses in October. The Excel sheet she built that weekend is still her source of truth.
             </p>
           </div>
 
           <div className="bg-white border border-graphite-100 rounded-xl p-6 card-shadow">
             <p className="text-[11px] uppercase tracking-widest font-bold text-graphite-400 mb-2">Day in the life</p>
             <ul className="space-y-2 text-sm text-graphite-700">
-              <li><span className="font-mono text-graphite-400">07:30</span> · Coffee, scans overnight email alerts</li>
-              <li><span className="font-mono text-graphite-400">08:00</span> · Opens StockAI, sees 47 new recs</li>
-              <li><span className="font-mono text-graphite-400">08:15</span> · Switches to Excel to validate</li>
-              <li><span className="font-mono text-graphite-400">11:30</span> · Approves 12 of 47 by lunch</li>
-              <li><span className="font-mono text-graphite-400">15:00</span> · Calls supplier on dismissed rec</li>
+              <li><span className="font-mono text-graphite-400">07:30</span> · Coffee. Scans overnight email alerts.</li>
+              <li><span className="font-mono text-graphite-400">08:00</span> · Opens StockAI. 47 new recs waiting.</li>
+              <li><span className="font-mono text-graphite-400">08:15</span> · Switches to Excel to validate the first one.</li>
+              <li><span className="font-mono text-graphite-400">11:30</span> · Approved 12 of 47 by lunch.</li>
+              <li><span className="font-mono text-graphite-400">15:00</span> · Calls a supplier on a rec she dismissed an hour ago.</li>
             </ul>
           </div>
         </div>
@@ -46,13 +54,7 @@ export default function ProblemSection() {
             5 design principles guiding the redesign
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-            {[
-              { n: '01', title: 'Show, don\'t tell', desc: 'Every rec carries its reasoning visibly: signals, constraints, history.' },
-              { n: '02', title: 'Adjustable, not absolute', desc: 'Maya can override units inline without losing AI context.' },
-              { n: '03', title: 'Confidence is honest', desc: 'Low-confidence recs say so. No false certainty.' },
-              { n: '04', title: 'Past decisions teach', desc: 'Surface similar past calls and outcomes.' },
-              { n: '05', title: 'AI on tap, not in the way', desc: 'Co-pilot is persistent but never overlays the workflow.' },
-            ].map((p) => (
+            {principles.map((p) => (
               <div key={p.n} className="bg-white border border-graphite-100 rounded-lg p-4">
                 <div className="flex items-start gap-3">
                   <span className="text-[11px] font-bold font-mono text-indigo-400">{p.n}</span>

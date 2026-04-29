@@ -1,39 +1,64 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ExpandableSection from './ExpandableSection';
+import Lightbox from './Lightbox';
 
 const issues = [
-  { n: 1, severity: 'high', title: 'No visible "why" behind recs', screen: 'Step 2', desc: 'AI proposes +480 units with zero supporting signals. Maya can\'t evaluate.' },
-  { n: 2, severity: 'high', title: 'No confidence indicator', screen: 'Step 2', desc: 'All recs look equally certain. Low-confidence calls are dangerous.' },
-  { n: 3, severity: 'high', title: 'No constraint check', screen: 'Step 2', desc: 'Doesn\'t show whether MOQs, capacity, lead times were validated.' },
-  { n: 4, severity: 'med', title: 'No bulk approval', screen: 'Step 1', desc: '47 recs reviewed one-by-one, no multi-select.' },
-  { n: 5, severity: 'med', title: 'No alternative scenarios', screen: 'Step 2', desc: '"What if I order 300 instead?" requires manual recalc.' },
-  { n: 6, severity: 'med', title: 'Past decisions invisible', screen: 'Step 3', desc: 'No reference to similar past situations and outcomes.' },
-  { n: 7, severity: 'med', title: 'No external signals', screen: 'Step 2', desc: 'Marathon nearby? Cold snap? Maya finds out from Twitter.' },
-  { n: 8, severity: 'low', title: 'Cluttered table', screen: 'Step 1', desc: 'Too many columns, no priority sort.' },
+  { n: 1, severity: 'high', title: 'No visible "why" behind recs', screen: 'Step 2', desc: 'The AI proposes +480 units. Zero supporting signals. Maya has nothing to evaluate.' },
+  { n: 2, severity: 'high', title: 'No confidence indicator', screen: 'Step 2', desc: 'Every rec looks equally certain. The low-confidence ones are the ones that bite.' },
+  { n: 3, severity: 'high', title: 'No constraint check', screen: 'Step 2', desc: 'MOQs, capacity, lead times. None of it visible. Maya has to assume someone checked.' },
+  { n: 4, severity: 'med', title: 'No bulk approval', screen: 'Home', desc: '47 recs, reviewed one by one. No multi-select, no triage path.' },
+  { n: 5, severity: 'med', title: 'No alternative scenarios', screen: 'Step 2', desc: '"What if I order 300 instead?" requires a manual recalc in another tab.' },
+  { n: 6, severity: 'med', title: 'Past decisions invisible', screen: 'Step 3', desc: 'No reference to similar past calls. Same mistake, different week.' },
+  { n: 7, severity: 'med', title: 'No external signals', screen: 'Step 2', desc: 'Marathon nearby? Cold snap? Maya finds out from Twitter, not the tool.' },
+  { n: 8, severity: 'low', title: 'Cluttered table', screen: 'Home', desc: 'Too many columns competing for attention. No priority sort.' },
 ];
 
 export default function AuditSection() {
+  const [lightboxImage, setLightboxImage] = useState<string | null>(null);
+
   return (
     <ExpandableSection
       id="audit"
       eyebrow="02 · Design audit"
       title="What's broken in the existing flow."
-      summary="I audited the 3-screen Replenishment flow against established AI co-pilot UX patterns from Stripe Radar, Salesforce Einstein, and Microsoft HAX guidelines. Mapped 19 issues across the 3 screens, severity-coded. Top 8 listed below — each maps to a specific screen and a clear principle violated."
+      summary="I ran the 4-screen flow against three reference patterns: Stripe Radar, Salesforce Einstein, and Microsoft HAX guidelines. 19 issues came out of it, severity-coded. The 8 below are the ones that drove the redesign decisions. Each points at the screen where it lives and the principle it breaks."
       background="cool-gray"
     >
       <div className="space-y-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {['step-1', 'step-2', 'step-3'].map((step, i) => (
-            <div key={step} className="bg-white border border-graphite-100 rounded-xl p-3 card-shadow">
-              <p className="text-[10px] uppercase tracking-widest font-bold text-graphite-400 mb-2 px-1">
-                Brief screen {i + 1}
-              </p>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+          {[
+            { file: 'home', label: 'Home', caption: 'Replenishment list' },
+            { file: 'step-1', label: 'Step 1', caption: 'Pick SKU' },
+            { file: 'step-2', label: 'Step 2', caption: 'Configure rec' },
+            { file: 'step-3', label: 'Step 3', caption: 'Submit transfer' },
+          ].map((screen) => (
+            <button
+              key={screen.file}
+              onClick={() => setLightboxImage(screen.file)}
+              className="
+                group bg-white border border-graphite-100 rounded-xl p-3 card-shadow
+                hover:border-indigo-200 hover:shadow-md transition-all
+                text-left cursor-zoom-in
+              "
+            >
+              <div className="flex items-center justify-between mb-2 px-1">
+                <p className="text-[10px] uppercase tracking-widest font-bold text-graphite-400">
+                  {screen.label}
+                </p>
+                <span className="text-[10px] text-graphite-300 font-mono group-hover:text-indigo-400 transition-colors">
+                  click to zoom
+                </span>
+              </div>
               <img 
-                src={`/audit-screenshots/${step}.png`} 
-                alt={`Brief screen ${i + 1}`}
+                src={`/audit-screenshots/${screen.file}.png`} 
+                alt={`Brief ${screen.label}: ${screen.caption}`}
                 className="w-full h-auto rounded-lg border border-graphite-100"
+                loading="lazy"
               />
-            </div>
+              <p className="text-[11px] text-graphite-500 mt-2 px-1 font-medium">
+                {screen.caption}
+              </p>
+            </button>
           ))}
         </div>
 
@@ -64,6 +89,8 @@ export default function AuditSection() {
           </div>
         </div>
       </div>
+
+      <Lightbox image={lightboxImage} onClose={() => setLightboxImage(null)} />
     </ExpandableSection>
   );
 }

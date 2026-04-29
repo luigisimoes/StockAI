@@ -6,8 +6,8 @@ export default function LoFiSection() {
     <ExpandableSection
       id="lo-fi"
       eyebrow="04 · Lo-fi wireframes"
-      title="From sketches to structure, before pixels."
-      summary="Before opening Figma I locked the structure with simple block wireframes. Stat cards row → AI strip → tabs → content. The drawer concept came out of trying (and failing) to make a 4th screen for deep review. These are the blocks that became the production build above."
+      title="Blocks before pixels."
+      summary="Before opening Figma I locked the structure with simple block wireframes. Stat cards row, AI strip, tabs, content. The drawer came out of trying to fit deep review into a fourth screen and realizing a slide-over was the right answer."
       background="cool-gray"
     >
       <div className="space-y-12">
@@ -114,7 +114,7 @@ export default function LoFiSection() {
                 <div className="w-2 h-2 rounded-full bg-graphite-300" />
                 <div className="w-2 h-2 rounded-full bg-graphite-300" />
               </div>
-              <span className="text-[10px] text-graphite-400 font-mono ml-2">Drawer wireframe — 3 zones</span>
+              <span className="text-[10px] text-graphite-400 font-mono ml-2">Drawer wireframe, 3 zones</span>
             </div>
 
             <div className="bg-graphite-100 p-6 flex justify-end">
@@ -246,11 +246,11 @@ export default function LoFiSection() {
             Key decisions made at lo-fi
           </p>
           <ul className="space-y-2 text-sm text-graphite-700">
-            <li>• Drawer over modal — preserves dashboard context, lets Maya scan the queue without losing her place</li>
-            <li>• Tabs inside drawer over scroll — Why / Forecast / Alternatives / Activity sit in 4 distinct mental models</li>
-            <li>• Bulk approve as toolbar — appears only on multi-select, never clutters the default state</li>
-            <li>• AI panel persistent inline — not popup, not overlay, never blocks the workflow</li>
-            <li>• Decision footer always visible — adjustment input + slider + impact + Approve, even on long drawer scrolls</li>
+            <li>· Drawer beats modal. Maya keeps her place in the queue.</li>
+            <li>· Tabs inside the drawer (Why, Forecast, Alternatives, Activity) sort the four mental models a reviewer carries.</li>
+            <li>· Bulk approve is a toolbar that only shows up on multi-select. Default state stays clean.</li>
+            <li>· The AI panel sits inline. Not a popup, not an overlay. Maya never has to dismiss it.</li>
+            <li>· The decision footer is sticky. Adjust + slider + Approve are always one glance away.</li>
           </ul>
         </div>
       </div>

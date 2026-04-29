@@ -14,7 +14,7 @@ export default function HiFiSection() {
             Built it. It works. Try it.
           </h2>
           <p className="text-lg text-graphite-700 leading-relaxed font-medium mb-2">
-            Below is the actual production build, not a Figma prototype. Click any rec to open the deep-review drawer. Use the AI Co-Pilot strip. Approve, dismiss, adjust units. Built with React 19, Tailwind v4, shadcn/ui, deployed on Vercel.
+            Below is the actual production build, not a Figma prototype. Click any rec, open the drawer, talk to the co-pilot, drag the slider, approve. Built with React, Tailwind, shadcn, deployed on Vercel.
           </p>
           <p className="text-[13px] text-graphite-500 font-mono">
             Stack: React 19 · Vite · TypeScript · Tailwind v4 · shadcn/ui · Zustand · Framer Motion · Sonner
@@ -68,9 +68,9 @@ export default function HiFiSection() {
           </p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
             {[
-              { n: '01', tip: 'Click row 1 (Sneakers) → drawer opens with deep review' },
-              { n: '02', tip: 'Click an AI Co-Pilot suggestion chip in the strip' },
-              { n: '03', tip: 'Drag the impact slider in the footer → live numbers update' },
+              { n: '01', tip: 'Click row 1 (Sneakers). The drawer opens with the deep review.' },
+              { n: '02', tip: 'Click a chip in the AI Co-Pilot strip. The co-pilot answers inline.' },
+              { n: '03', tip: 'Drag the impact slider in the footer. The numbers update live.' },
             ].map((item) => (
               <div key={item.n} className="flex gap-3 p-4 bg-white border border-graphite-100 rounded-lg card-shadow">
                 <span className="text-[11px] font-bold font-mono text-indigo-400">{item.n}</span>

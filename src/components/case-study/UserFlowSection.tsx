@@ -7,7 +7,7 @@ export default function UserFlowSection() {
       id="user-flow"
       eyebrow="03 · User flow"
       title="From 3 screens to 1 dashboard + drawer."
-      summary="The original flow forced linear navigation: pick a SKU, see the rec, configure transfer. The proposed flow is dashboard-centric with progressive disclosure. Maya scans the queue, opens deep review for high-stakes recs, approves or adjusts inline."
+      summary="The original flow walks Maya through three pages to approve one rec. The new flow puts the queue, the reasoning, and the decision on one surface. Scan, click, approve. Open the drawer when a rec needs more thought."
     >
       <div className="space-y-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -16,7 +16,7 @@ export default function UserFlowSection() {
               Current flow (3 screens)
             </p>
             <div className="space-y-3 text-sm">
-              {['Browse SKU table', 'Click into SKU detail', 'Configure transfer parameters', 'Submit and exit'].map((s, i) => (
+              {['Browse SKU list', 'Click into SKU detail', 'Configure the transfer', 'Submit, exit, repeat 47 times'].map((s, i) => (
                 <div key={i} className="flex items-center gap-3">
                   <div className="w-6 h-6 rounded-full bg-graphite-100 flex items-center justify-center text-[10px] font-bold font-mono text-graphite-500">
                     {String(i + 1).padStart(2, '0')}
@@ -33,7 +33,7 @@ export default function UserFlowSection() {
               Proposed flow (1 + drawer)
             </p>
             <div className="space-y-3 text-sm">
-              {['Open dashboard, scan queue', 'Bulk approve confident recs', 'Drawer-deep review on high-stakes', 'Adjust inline, approve'].map((s, i) => (
+              {['Open the dashboard, scan the queue', 'Bulk-approve the high-confidence batch', 'Open the drawer for high-stakes recs', 'Adjust inline, approve, next'].map((s, i) => (
                 <div key={i} className="flex items-center gap-3">
                   <div className="w-6 h-6 rounded-full bg-indigo-200 flex items-center justify-center text-[10px] font-bold font-mono text-indigo-700">
                     {String(i + 1).padStart(2, '0')}
@@ -42,7 +42,7 @@ export default function UserFlowSection() {
                 </div>
               ))}
             </div>
-            <p className="text-[11px] text-indigo-600 mt-4 font-mono font-bold">~90 sec avg · same 47 recs (hypothesis)</p>
+            <p className="text-[11px] text-indigo-600 mt-4 font-mono font-bold">~90 sec avg per rec, hypothesis pending validation</p>
           </div>
         </div>
 
@@ -51,7 +51,7 @@ export default function UserFlowSection() {
             Detailed flow diagram
           </p>
           <p className="text-sm text-graphite-600">
-            Available in the Figma file — Page "User Flow"
+            Available in the Figma file, page "User Flow"
           </p>
         </div>
       </div>
