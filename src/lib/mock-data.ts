@@ -13,6 +13,15 @@ export interface Recommendation {
   signals: Signal[]; constraints: Constraint[]; pastDecisions: PastDecision[];
   forecastDays: number[]; alternatives: Alternative[];
   activityTimeline: ActivityEntry[]; externalSignal?: { label: string; detail: string };
+  // Stat card metadata
+  statCard: {
+    actionLabel: string; // e.g. "Next restock gap: Oct 12" or "Carrying cost: $4.2K/quarter"
+    daysOfCoverCurrent: number;
+    daysOfCoverProjected: number;
+    daysOfCoverTarget: number;
+    forecastDelta: string; // e.g. "14% vs forecast" or "-18% vs last quarter"
+    inactionLabel: string; // e.g. "OOS in 3 days" or "Action recommended"
+  };
 }
 
 export const recommendations: Recommendation[] = [
@@ -23,6 +32,7 @@ export const recommendations: Recommendation[] = [
     confidence: { score: 98, tier: 'high' },
     impact: '$12,400', impactValue: 12400, type: 'IMPACT',
     alert: 'OOS in 3 days', initials: 'VR', vendor: 'Nike Distribution', leadTime: '24h', baseImpact: 47204,
+    statCard: { actionLabel: 'Next restock gap: Oct 12', daysOfCoverCurrent: 2.8, daysOfCoverProjected: 10.6, daysOfCoverTarget: 12.0, forecastDelta: '14% vs forecast', inactionLabel: 'OOS in 3 days' },
     externalSignal: { label: 'Northeast Marathon Event', detail: 'Historical data and social trends indicate a 40% surge in athletic footwear demand in the Northeast region coinciding with the upcoming marathon. StockAI detected similar patterns in 2022 and 2023.' },
     signals: [
       { label: 'Sales Velocity', detail: '+34% vs last 7 days', weight: 88 },
@@ -62,6 +72,7 @@ export const recommendations: Recommendation[] = [
     confidence: { score: 72, tier: 'medium' },
     impact: '$8,120', impactValue: 8120, type: 'IMPACT',
     alert: 'OOS in 1 day', initials: 'CM', vendor: 'Chrono Corp', leadTime: '48h', baseImpact: 18500,
+    statCard: { actionLabel: 'Next restock gap: Oct 9', daysOfCoverCurrent: 0.8, daysOfCoverProjected: 8.4, daysOfCoverTarget: 10.0, forecastDelta: '28% vs forecast', inactionLabel: 'OOS in 1 day' },
     externalSignal: { label: 'Holiday Gift Season Approaching', detail: 'Premium watch sales historically surge 55% in the 6 weeks before the holiday season. Social media mentions of minimalist watches are up 32% YoY.' },
     signals: [
       { label: 'Sales Velocity', detail: '+28% vs trailing 7-day avg', weight: 74 },
@@ -99,6 +110,7 @@ export const recommendations: Recommendation[] = [
     confidence: { score: 94, tier: 'high' },
     impact: '-$4,200', impactValue: -4200, type: 'OVERSTOCK',
     action: 'Liquidation Rec', initials: 'AW', vendor: 'Audio Systems Inc', leadTime: '72h', baseImpact: -4200,
+    statCard: { actionLabel: 'Carrying cost: $4.2K/quarter', daysOfCoverCurrent: 24.5, daysOfCoverProjected: 9.2, daysOfCoverTarget: 8.0, forecastDelta: '-18% vs last quarter', inactionLabel: 'Action recommended' },
     signals: [
       { label: 'Demand Softening', detail: '-12% MoM velocity for 3 months', weight: 82 },
       { label: 'Competitor Product Launch', detail: 'Sony WH-1000XM6 released last week', weight: 65 },
@@ -135,6 +147,7 @@ export const recommendations: Recommendation[] = [
     confidence: { score: 81, tier: 'medium' },
     impact: '$5,900', impactValue: 5900, type: 'IMPACT',
     alert: 'OOS in 5 days', initials: 'AT', vendor: 'Audio Systems Inc', leadTime: '36h', baseImpact: 5900,
+    statCard: { actionLabel: 'Next restock gap: Oct 15', daysOfCoverCurrent: 1.9, daysOfCoverProjected: 11.4, daysOfCoverTarget: 14.0, forecastDelta: '22% vs forecast', inactionLabel: 'OOS in 5 days' },
     externalSignal: { label: 'Vinyl Resurgence Trend', detail: 'Vinyl record sales hit a 30-year high last quarter. Turntable searches are up 45% YoY, driven by Gen-Z and millennial collectors.' },
     signals: [
       { label: 'Niche Conversion Rate', detail: '4.2x category average conversion', weight: 76 },
@@ -172,6 +185,7 @@ export const recommendations: Recommendation[] = [
     confidence: { score: 89, tier: 'high' },
     impact: '$9,800', impactValue: 9800, type: 'IMPACT',
     alert: 'OOS in 7 days', initials: 'UC', vendor: 'UrbanWear Co', leadTime: '48h', baseImpact: 22400,
+    statCard: { actionLabel: 'Next restock gap: Oct 17', daysOfCoverCurrent: 5.2, daysOfCoverProjected: 14.8, daysOfCoverTarget: 14.0, forecastDelta: '35% vs forecast', inactionLabel: 'OOS in 7 days' },
     externalSignal: { label: 'Return-to-Office Surge', detail: 'Corporate RTO mandates are driving a 35% increase in commuter apparel demand. Weather forecast shows a cold snap arriving in 5 days across the West Coast corridor.' },
     signals: [
       { label: 'Seasonal Demand Shift', detail: 'Fall commuter apparel +35% historically', weight: 80 },
@@ -209,6 +223,7 @@ export const recommendations: Recommendation[] = [
     confidence: { score: 67, tier: 'medium' },
     impact: '$4,350', impactValue: 4350, type: 'IMPACT',
     initials: 'SY', vendor: 'FitGear Ltd', leadTime: '24h', baseImpact: 9200,
+    statCard: { actionLabel: 'First full season restock', daysOfCoverCurrent: 6.8, daysOfCoverProjected: 18.2, daysOfCoverTarget: 21.0, forecastDelta: '18% vs initial projection', inactionLabel: 'Low stock by day 12' },
     externalSignal: { label: 'January Wellness Spike', detail: 'Fitness equipment sales historically spike 60% in January. Early indicators from gym membership data suggest a strong season ahead.' },
     signals: [
       { label: 'New Year Wellness Trend', detail: 'Fitness gear demand +60% in Jan historically', weight: 68 },
@@ -245,6 +260,7 @@ export const recommendations: Recommendation[] = [
     confidence: { score: 91, tier: 'high' },
     impact: '-$3,100', impactValue: -3100, type: 'OVERSTOCK',
     action: 'Transfer Rec', initials: 'HL', vendor: 'LeatherCraft Inc', leadTime: '24h', baseImpact: -3100,
+    statCard: { actionLabel: 'Carrying cost: $3.1K/quarter', daysOfCoverCurrent: 18.6, daysOfCoverProjected: 9.3, daysOfCoverTarget: 10.0, forecastDelta: '-20% vs last quarter', inactionLabel: 'Action recommended' },
     signals: [
       { label: 'Regional Demand Mismatch', detail: 'Central 40% oversupplied vs West Coast deficit', weight: 78 },
       { label: 'Seasonal Shift Ending', detail: 'Back-to-school demand completed, velocity -20%', weight: 56 },
@@ -281,6 +297,7 @@ export const recommendations: Recommendation[] = [
     confidence: { score: 44, tier: 'low' },
     impact: '$2,800', impactValue: 2800, type: 'IMPACT',
     alert: 'OOS in 2 days', initials: 'TW', vendor: 'TechSupply Global', leadTime: '72h', baseImpact: 6100,
+    statCard: { actionLabel: 'First reorder (new SKU)', daysOfCoverCurrent: 2.0, daysOfCoverProjected: 16.0, daysOfCoverTarget: 14.0, forecastDelta: 'Insufficient data', inactionLabel: 'OOS in 2 days' },
     signals: [
       { label: 'New SKU — Limited History', detail: 'Only 6 weeks of sales data available', weight: 35 },
       { label: 'Category Momentum', detail: 'Wireless charging category +40% YoY', weight: 52 },

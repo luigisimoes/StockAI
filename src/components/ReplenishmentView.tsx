@@ -109,14 +109,14 @@ export default function ReplenishmentView() {
           <div className="bg-indigo-400 text-white p-1.5 rounded-lg">
             <Sparkles className="w-5 h-5" strokeWidth={1.5} />
           </div>
-          <div className="text-sm">
-            <span className="font-semibold text-indigo-400">432 SKUs auto-approved</span>
-            <span className="text-graphite-300 mx-3">|</span>
-            <span className="text-graphite-900 font-medium">87 need review</span>
-            <span className="text-graphite-300 mx-3">|</span>
-            <span className="text-graphite-900 font-medium">12 conflicts</span>
-            <span className="text-graphite-300 mx-3">|</span>
-            <span className="text-graphite-900 font-medium">3 anomalies</span>
+          <div className="text-sm flex items-center gap-0.5 flex-wrap">
+            <span className="flex items-center gap-1.5 font-semibold text-emerald-700"><span className="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block" />432 SKUs auto-approved</span>
+            <span className="text-graphite-300 mx-2">|</span>
+            <span className="flex items-center gap-1.5 font-medium text-indigo-500"><span className="w-1.5 h-1.5 rounded-full bg-indigo-400 inline-block" />87 need review</span>
+            <span className="text-graphite-300 mx-2">|</span>
+            <span className="flex items-center gap-1.5 font-medium text-amber-700"><span className="w-1.5 h-1.5 rounded-full bg-amber-500 inline-block" />12 conflicts</span>
+            <span className="text-graphite-300 mx-2">|</span>
+            <span className="flex items-center gap-1.5 font-medium text-rose-700"><span className="w-1.5 h-1.5 rounded-full bg-rose-500 inline-block" />3 anomalies</span>
           </div>
         </div>
         <div className="flex items-center gap-4 text-sm font-semibold text-indigo-400">

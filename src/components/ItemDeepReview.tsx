@@ -17,6 +17,7 @@ interface ItemDeepReviewProps {
 export default function ItemDeepReview({ itemId, onClose }: ItemDeepReviewProps) {
   const rec = recommendations.find((r) => r.id === itemId) ?? recommendations[0];
   const [units, setUnits] = useState(rec.proposed - rec.current);
+  const isOverstock = rec.type === 'OVERSTOCK';
   const [activeTab, setActiveTab] = useState('why');
 
   const approve = useStore((s) => s.approve);
@@ -44,7 +45,7 @@ export default function ItemDeepReview({ itemId, onClose }: ItemDeepReviewProps)
     approve(rec.id, units);
     onClose();
     toast.success(`Approved: ${rec.title}`, {
-      description: `+${units.toLocaleString()} units · $${Math.abs(liveImpact).toLocaleString()} projected impact`,
+      description: `${units > 0 ? '+' : ''}${units.toLocaleString()} units · $${Math.abs(liveImpact).toLocaleString()} projected impact`,
       action: {
         label: 'Undo',
         onClick: () => {
@@ -133,31 +134,35 @@ export default function ItemDeepReview({ itemId, onClose }: ItemDeepReviewProps)
         {/* Scrollable Content */}
         <div className="flex-1 overflow-auto px-8 py-6 space-y-6">
           {/* Stats Grid */}
-          <div className="grid grid-cols-4 gap-4">
+          <div className="grid grid-cols-4 gap-4 flex-shrink-0">
             <div className="p-4 bg-graphite-50 hairline-border rounded-xl">
               <p className="text-[10px] font-bold text-graphite-400 uppercase tracking-widest mb-2">Recommended action</p>
-              <p className="text-xl font-display font-bold text-indigo-400 tabular-nums">+{baseUnits} units</p>
-              <p className="text-[11px] text-graphite-500 mt-2 font-medium">Next restock gap: Oct 12</p>
+              <p className="text-xl font-display font-bold text-indigo-400 tabular-nums">{baseUnits > 0 ? '+' : ''}{baseUnits.toLocaleString()} units</p>
+              <p className="text-[11px] text-graphite-500 mt-2 font-medium">{rec.statCard.actionLabel}</p>
             </div>
             <div className="p-4 bg-graphite-50 hairline-border rounded-xl">
               <p className="text-[10px] font-bold text-graphite-400 uppercase tracking-widest mb-2">Projected revenue</p>
-              <p className="text-xl font-display font-bold text-emerald-600 tabular-nums">+${(rec.baseImpact / 1000).toFixed(1)}K</p>
-              <div className="text-[11px] text-emerald-600 mt-2 font-bold flex items-center gap-1">
+              <p className={cn("text-xl font-display font-bold tabular-nums", rec.baseImpact >= 0 ? "text-emerald-600" : "text-rose-600")}>
+                {rec.baseImpact >= 0 ? '+' : '-'}${(Math.abs(rec.baseImpact) / 1000).toFixed(1)}K
+              </p>
+              <div className={cn("text-[11px] mt-2 font-bold flex items-center gap-1", rec.baseImpact >= 0 ? "text-emerald-600" : "text-graphite-500")}>
                 <TrendingUp className="w-3 h-3" strokeWidth={1.5} />
-                14% vs forecast
+                {rec.statCard.forecastDelta}
               </div>
             </div>
             <div className="p-4 bg-graphite-50 hairline-border rounded-xl">
               <p className="text-[10px] font-bold text-graphite-400 uppercase tracking-widest mb-2">Days of cover</p>
               <div className="text-xl font-display font-bold text-graphite-900 tabular-nums flex items-baseline gap-2">
-                2.8 <ArrowRight className="w-3 h-3 text-graphite-300" strokeWidth={1.5} /> 10.6
+                {rec.statCard.daysOfCoverCurrent} <ArrowRight className="w-3 h-3 text-graphite-300" strokeWidth={1.5} /> {rec.statCard.daysOfCoverProjected}
               </div>
-              <p className="text-[11px] text-graphite-500 mt-2 font-medium">Target: 12.0 days</p>
+              <p className="text-[11px] text-graphite-500 mt-2 font-medium">Target: {rec.statCard.daysOfCoverTarget} days</p>
             </div>
             <div className="p-4 bg-rose-50 border border-rose-100 rounded-xl">
               <p className="text-[10px] font-bold text-rose-500 uppercase tracking-widest mb-2">If you don't act</p>
-              <p className="text-xl font-display font-bold text-rose-600 tabular-nums">-${(rec.baseImpact / 1000).toFixed(0)}K</p>
-              <p className="text-[11px] text-rose-600 mt-2 font-bold">{rec.alert ?? 'Action recommended'}</p>
+              <p className="text-xl font-display font-bold text-rose-600 tabular-nums">
+                {isOverstock ? '' : '-'}${(Math.abs(rec.baseImpact) / 1000).toFixed(0)}K
+              </p>
+              <p className="text-[11px] text-rose-600 mt-2 font-bold">{rec.statCard.inactionLabel}</p>
             </div>
           </div>
 
@@ -269,11 +274,13 @@ export default function ItemDeepReview({ itemId, onClose }: ItemDeepReviewProps)
                   <h3 className="text-sm font-bold text-graphite-900 mb-4">14-Day Demand Forecast</h3>
                   <div className="flex items-end gap-1 h-32">
                     {rec.forecastDays.map((val, i) => {
-                      const peak = rec.forecastDays.indexOf(Math.max(...rec.forecastDays));
+                      const maxVal = Math.max(...rec.forecastDays);
+                      const peak = rec.forecastDays.indexOf(maxVal);
                       const isPeak = i >= Math.max(0, peak - 2) && i <= Math.min(13, peak + 2);
+                      const normalizedHeight = maxVal > 0 ? (val / maxVal) * 100 : 0;
                       return (
                         <div key={i} className="flex-1 flex flex-col items-center gap-1">
-                          <div className={cn("w-full rounded-t transition-all", isPeak ? "bg-indigo-400" : "bg-graphite-200")} style={{ height: `${val}%` }} />
+                          <div className={cn("w-full rounded-t transition-all", isPeak ? "bg-indigo-400" : "bg-graphite-200")} style={{ height: `${normalizedHeight}%` }} />
                           <span className="text-[9px] text-graphite-400 tabular-nums font-mono">{i + 1}</span>
                         </div>
                       );
@@ -316,10 +323,10 @@ export default function ItemDeepReview({ itemId, onClose }: ItemDeepReviewProps)
                           <h4 className="text-sm font-bold text-graphite-900">{alt.label}</h4>
                           {isRec && <span className="text-[10px] font-bold text-indigo-400 bg-indigo-100 px-2 py-0.5 rounded-full uppercase tracking-wider">Current</span>}
                         </div>
-                        <p className="text-[13px] text-graphite-500 font-medium">{alt.units > 0 ? '+' : ''}{alt.units} units · {alt.coverage} coverage · Risk: {alt.risk}</p>
+                        <p className="text-[13px] text-graphite-500 font-medium">{alt.units > 0 ? '+' : ''}{alt.units.toLocaleString()} units · {alt.coverage} coverage · Risk: {alt.risk}</p>
                       </div>
                       <div className="text-right">
-                        <p className="text-lg font-display font-bold tabular-nums text-graphite-900">${(Math.abs(alt.revenue) / 1000).toFixed(1)}K</p>
+                        <p className="text-lg font-display font-bold tabular-nums text-graphite-900">{alt.revenue >= 0 ? '' : '-'}${(Math.abs(alt.revenue) / 1000).toFixed(1)}K</p>
                         <p className="text-[11px] text-graphite-400 font-medium">projected impact</p>
                       </div>
                     </div>
@@ -367,7 +374,7 @@ export default function ItemDeepReview({ itemId, onClose }: ItemDeepReviewProps)
             <label className="text-[10px] font-bold text-graphite-400 uppercase tracking-widest block mb-1.5">Adjustment</label>
             <div className="flex items-center hairline-border rounded-lg overflow-hidden bg-graphite-50 shadow-inner">
               <button
-                onClick={() => setUnits(Math.max(10, units - 10))}
+                onClick={() => setUnits(isOverstock ? Math.min(units + 10, -10) : Math.max(10, units - 10))}
                 className="px-3 py-2 hover:bg-graphite-200 transition-colors text-graphite-600"
                 aria-label="Decrease units"
               >
@@ -376,12 +383,15 @@ export default function ItemDeepReview({ itemId, onClose }: ItemDeepReviewProps)
               <input
                 id="adjustment-input"
                 type="number"
-                className="w-16 text-center border-none focus:ring-0 font-bold text-graphite-900 bg-transparent tabular-nums text-sm"
+                className="w-20 text-center border-none focus:ring-0 font-bold text-graphite-900 bg-transparent tabular-nums text-sm"
                 value={units}
-                onChange={(e) => setUnits(Math.max(10, Number(e.target.value)))}
+                onChange={(e) => {
+                  const v = Number(e.target.value);
+                  setUnits(isOverstock ? Math.min(v, -10) : Math.max(10, v));
+                }}
               />
               <button
-                onClick={() => setUnits(units + 10)}
+                onClick={() => setUnits(isOverstock ? units - 10 : units + 10)}
                 className="px-3 py-2 hover:bg-graphite-200 transition-colors text-graphite-600"
                 aria-label="Increase units"
               >
@@ -394,15 +404,15 @@ export default function ItemDeepReview({ itemId, onClose }: ItemDeepReviewProps)
           <div className="flex-1 min-w-0">
             <div className="flex justify-between mb-1.5">
               <span className="text-[10px] font-bold text-graphite-400 uppercase tracking-widest">Impact range</span>
-              <span className="text-[11px] font-bold text-indigo-400 tabular-nums">{units} units {units === baseUnits ? '(optimal)' : ''}</span>
+              <span className="text-[11px] font-bold text-indigo-400 tabular-nums">{units > 0 ? '+' : ''}{units.toLocaleString()} units {units === baseUnits ? '(optimal)' : ''}</span>
             </div>
             <input
               type="range"
               className="w-full h-1.5 bg-graphite-100 rounded-lg appearance-none cursor-pointer accent-indigo-400"
-              value={units}
-              max={baseUnits * 2}
-              min={10}
-              onChange={(e) => setUnits(Number(e.target.value))}
+              value={isOverstock ? Math.abs(units) : units}
+              max={Math.abs(baseUnits) * 2}
+              min={isOverstock ? 10 : 10}
+              onChange={(e) => setUnits(isOverstock ? -Number(e.target.value) : Number(e.target.value))}
             />
           </div>
 
@@ -410,13 +420,15 @@ export default function ItemDeepReview({ itemId, onClose }: ItemDeepReviewProps)
           <div className="flex items-center gap-5 shrink-0">
             <div className="text-right">
               <p className="text-[10px] font-bold text-graphite-400 uppercase tracking-widest">Live Impact</p>
-              <p className="text-lg font-display font-bold text-emerald-600 tabular-nums">+${liveImpact.toLocaleString()}</p>
+              <p className={cn("text-lg font-display font-bold tabular-nums", liveImpact >= 0 ? "text-emerald-600" : "text-rose-600")}>
+                {liveImpact >= 0 ? '+' : '-'}${Math.abs(liveImpact).toLocaleString()}
+              </p>
             </div>
             <button
               onClick={handleApprove}
               className="bg-indigo-400 text-white hover:bg-indigo-500 px-6 py-3 rounded-xl font-bold shadow-lg shadow-indigo-400/20 active:scale-[0.98] transition-all flex items-center gap-2 group whitespace-nowrap"
             >
-              Approve · {units}
+              Approve · {units > 0 ? '+' : ''}{units.toLocaleString()}
               <Rocket className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" strokeWidth={1.5} />
             </button>
           </div>
