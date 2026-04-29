@@ -138,7 +138,7 @@ export default function ItemDeepReview({ itemId, onClose }: ItemDeepReviewProps)
             <div className="p-4 bg-graphite-50 hairline-border rounded-xl">
               <p className="text-[10px] font-bold text-graphite-400 uppercase tracking-widest mb-2">Recommended action</p>
               <p className="text-xl font-display font-bold text-indigo-400 tabular-nums">{baseUnits > 0 ? '+' : ''}{baseUnits.toLocaleString()} units</p>
-              <p className="text-[11px] text-graphite-500 mt-2 font-medium">{rec.statCard.actionLabel}</p>
+              <p className="text-[11px] text-graphite-500 mt-2 font-medium">{rec.statCard.nextRestockGap}</p>
             </div>
             <div className="p-4 bg-graphite-50 hairline-border rounded-xl">
               <p className="text-[10px] font-bold text-graphite-400 uppercase tracking-widest mb-2">Projected revenue</p>
@@ -155,14 +155,14 @@ export default function ItemDeepReview({ itemId, onClose }: ItemDeepReviewProps)
               <div className="text-xl font-display font-bold text-graphite-900 tabular-nums flex items-baseline gap-2">
                 {rec.statCard.daysOfCoverCurrent} <ArrowRight className="w-3 h-3 text-graphite-300" strokeWidth={1.5} /> {rec.statCard.daysOfCoverProjected}
               </div>
-              <p className="text-[11px] text-graphite-500 mt-2 font-medium">Target: {rec.statCard.daysOfCoverTarget} days</p>
+              <p className="text-[11px] text-graphite-500 mt-2 font-medium">Target: {rec.statCard.coverTarget} days</p>
             </div>
             <div className="p-4 bg-rose-50 border border-rose-100 rounded-xl">
               <p className="text-[10px] font-bold text-rose-500 uppercase tracking-widest mb-2">If you don't act</p>
               <p className="text-xl font-display font-bold text-rose-600 tabular-nums">
                 {isOverstock ? '' : '-'}${(Math.abs(rec.baseImpact) / 1000).toFixed(0)}K
               </p>
-              <p className="text-[11px] text-rose-600 mt-2 font-bold">{rec.statCard.inactionLabel}</p>
+              <p className="text-[11px] text-rose-600 mt-2 font-bold">{rec.alert ?? 'Action recommended'}</p>
             </div>
           </div>
 
