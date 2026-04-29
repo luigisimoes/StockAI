@@ -6,6 +6,7 @@ import { getResponse, getResponseTree } from '@/lib/mock-ai/responses';
 import { streamWords, thinkingDelay } from '@/lib/mock-ai/streaming';
 import { getToneOpener } from '@/lib/mock-ai/personality';
 import { useStore, type ConversationEntry } from '@/lib/store';
+import { motion } from 'motion/react';
 
 const EMPTY_CONVERSATIONS: ConversationEntry[] = [];
 
@@ -15,7 +16,7 @@ interface AskAiPanelProps {
 }
 
 export default function AskAiPanel({ recId, activeTab }: AskAiPanelProps) {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
   const [input, setInput] = useState('');
   const [isThinking, setIsThinking] = useState(false);
   const [isStreaming, setIsStreaming] = useState(false);
@@ -28,14 +29,16 @@ export default function AskAiPanel({ recId, activeTab }: AskAiPanelProps) {
   const addMessage = useStore((s) => s.addMessage);
 
   // Get suggested questions based on active tab
-  const tree = getResponseTree(recId);
-  const tabMap: Record<string, keyof typeof tree.suggestedQuestions> = {
-    why: 'why',
-    forecast: 'forecast',
-    alternatives: 'alternatives',
-    activity: 'activity',
-  };
-  const suggestions = tree.suggestedQuestions[tabMap[activeTab] ?? 'why'] ?? tree.suggestedQuestions.why;
+  const suggestedChips = useMemo(() => {
+    const tree = getResponseTree(recId);
+    switch (activeTab) {
+      case 'why': return tree.suggestedQuestions.why;
+      case 'forecast': return tree.suggestedQuestions.forecast;
+      case 'alternatives': return tree.suggestedQuestions.alternatives;
+      case 'activity': return tree.suggestedQuestions.activity;
+      default: return tree.suggestedQuestions.why;
+    }
+  }, [recId, activeTab]);
 
   // Auto-scroll to bottom
   useEffect(() => {
@@ -44,10 +47,18 @@ export default function AskAiPanel({ recId, activeTab }: AskAiPanelProps) {
     }
   }, [conversations, streamingText, isThinking]);
 
+  // Focus input when expanded
+  useEffect(() => {
+    if (isExpanded) {
+      setTimeout(() => inputRef.current?.focus(), 150);
+    }
+  }, [isExpanded]);
+
   async function handleAsk(question: string) {
     if (!question.trim() || isStreaming || isThinking) return;
 
     setInput('');
+    setIsExpanded(true);
     abortRef.current = false;
 
     // Add user message
@@ -99,107 +110,143 @@ export default function AskAiPanel({ recId, activeTab }: AskAiPanelProps) {
 
   function handleClose() {
     abortRef.current = true;
-    setIsOpen(false);
+    setIsExpanded(false);
     setIsThinking(false);
     setIsStreaming(false);
     setStreamingText('');
   }
 
-  if (!isOpen) {
-    return (
-      <button
-        onClick={() => { setIsOpen(true); setTimeout(() => inputRef.current?.focus(), 100); }}
-        className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-indigo-400 bg-indigo-50 hover:bg-indigo-100 border border-indigo-100 transition-colors"
-        aria-label="Ask about this recommendation"
-      >
-        <Sparkles className="w-3.5 h-3.5" strokeWidth={1.5} />
-        Ask about this rec
-      </button>
-    );
+  function handleSubmit() {
+    if (input.trim()) handleAsk(input);
   }
 
   return (
-    <div className="mt-4 bg-gradient-to-b from-indigo-50/50 to-white rounded-xl border border-indigo-100 overflow-hidden">
-      {/* Header */}
-      <div className="flex items-center justify-between px-4 py-3 border-b border-indigo-100">
-        <div className="flex items-center gap-2">
-          <Sparkles className="w-4 h-4 text-indigo-400" strokeWidth={1.5} />
-          <span className="text-sm font-bold text-graphite-900">Ask about this rec</span>
-          <span className="text-[10px] font-bold text-graphite-400 uppercase tracking-widest">AI Co-pilot</span>
+    <motion.div
+      layout
+      initial={false}
+      animate={{ height: isExpanded ? 380 : 60 }}
+      transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+      className="bg-gradient-to-r from-indigo-50/80 via-white to-indigo-50/40 border border-indigo-200 rounded-xl overflow-hidden"
+    >
+      {!isExpanded ? (
+        /* ─── COLLAPSED STATE ─── */
+        <div className="flex items-center justify-between px-5 h-[60px]">
+          <div className="flex items-center gap-2.5">
+            <div className="relative">
+              <div className="w-7 h-7 rounded-lg bg-indigo-400 flex items-center justify-center">
+                <Sparkles className="w-3.5 h-3.5 text-white" strokeWidth={2} />
+              </div>
+              <div className="absolute -top-0.5 -right-0.5 w-2 h-2 bg-yellow-300 rounded-full animate-pulse" />
+            </div>
+            <span className="text-sm font-bold text-graphite-900">AI Co-Pilot</span>
+            <span className="text-[11px] text-graphite-500 font-medium hidden sm:inline">Ready to explain this rec</span>
+          </div>
+
+          <div className="flex items-center gap-2">
+            {suggestedChips.slice(0, 2).map((q) => (
+              <button
+                key={q}
+                onClick={() => handleAsk(q)}
+                className="px-3 py-1.5 text-[11px] font-medium bg-white border border-indigo-200 text-indigo-700 rounded-full hover:bg-indigo-50 hover:border-indigo-300 transition-colors max-w-[200px] truncate"
+              >
+                {q}
+              </button>
+            ))}
+            <button
+              onClick={() => setIsExpanded(true)}
+              className="text-[11px] font-bold text-indigo-600 px-2 hover:text-indigo-700 transition-colors"
+            >
+              Ask →
+            </button>
+          </div>
         </div>
-        <button onClick={handleClose} className="p-1 text-graphite-400 hover:text-graphite-900 rounded transition-colors" aria-label="Close AI panel">
-          <X className="w-4 h-4" strokeWidth={1.5} />
-        </button>
-      </div>
+      ) : (
+        /* ─── EXPANDED STATE ─── */
+        <div className="flex flex-col h-full">
+          {/* Header bar */}
+          <div className="flex items-center justify-between px-5 py-3.5 border-b border-indigo-100 bg-white/50 backdrop-blur-sm shrink-0">
+            <div className="flex items-center gap-2.5">
+              <div className="w-7 h-7 rounded-lg bg-indigo-400 flex items-center justify-center">
+                <Sparkles className="w-3.5 h-3.5 text-white" strokeWidth={2} />
+              </div>
+              <span className="text-sm font-bold text-graphite-900">AI Co-Pilot</span>
+              <span className="text-[10px] uppercase tracking-widest font-bold text-indigo-500">Conversation</span>
+            </div>
+            <button onClick={handleClose} className="p-1.5 hover:bg-graphite-100 rounded-lg transition-colors">
+              <X className="w-4 h-4 text-graphite-500" strokeWidth={2} />
+            </button>
+          </div>
 
-      {/* Conversation */}
-      <div ref={scrollRef} className="max-h-64 overflow-y-auto px-4 py-3 space-y-3">
-        {conversations.length === 0 && !isThinking && !isStreaming && (
-          <p className="text-xs text-graphite-400 font-medium">Ask anything about this recommendation. Try one of the suggestions below.</p>
-        )}
-
-        {conversations.map((msg) => (
-          <div key={msg.id} className={cn("text-sm leading-relaxed", msg.role === 'user' ? "text-right" : "")}>
-            {msg.role === 'user' ? (
-              <span className="inline-block bg-indigo-400 text-white px-3 py-2 rounded-xl rounded-tr-sm text-[13px] font-medium max-w-[80%]">{msg.content}</span>
+          {/* Conversation area (scrollable) */}
+          <div ref={scrollRef} className="flex-1 overflow-y-auto px-5 py-4 space-y-3">
+            {conversations.length === 0 && !isThinking && !isStreaming ? (
+              <div className="space-y-2.5">
+                <p className="text-[11px] text-graphite-500 font-medium">Try asking:</p>
+                {suggestedChips.map((q) => (
+                  <button
+                    key={q}
+                    onClick={() => handleAsk(q)}
+                    className="w-full text-left px-4 py-2.5 text-[13px] bg-white border border-indigo-100 text-graphite-700 rounded-lg hover:bg-indigo-50 hover:border-indigo-200 hover:text-graphite-900 transition-all"
+                  >
+                    {q}
+                  </button>
+                ))}
+              </div>
             ) : (
-              <div className="bg-white hairline-border rounded-xl rounded-tl-sm p-3 text-[13px] text-graphite-700 leading-relaxed card-shadow">{msg.content}</div>
+              <>
+                {conversations.map((msg) => (
+                  <div key={msg.id} className={cn("text-sm leading-relaxed", msg.role === 'user' ? "text-right" : "")}>
+                    {msg.role === 'user' ? (
+                      <span className="inline-block bg-indigo-400 text-white px-3 py-2 rounded-xl rounded-tr-sm text-[13px] font-medium max-w-[80%]">{msg.content}</span>
+                    ) : (
+                      <div className="bg-white hairline-border rounded-xl rounded-tl-sm p-3 text-[13px] text-graphite-700 leading-relaxed card-shadow">{msg.content}</div>
+                    )}
+                  </div>
+                ))}
+
+                {/* Thinking indicator */}
+                {isThinking && (
+                  <div className="flex items-center gap-2 text-xs text-graphite-400">
+                    <Loader2 className="w-3.5 h-3.5 animate-spin text-indigo-400" strokeWidth={2} />
+                    <span className="font-medium">Thinking...</span>
+                  </div>
+                )}
+
+                {/* Streaming */}
+                {isStreaming && streamingText && (
+                  <div className="bg-white hairline-border rounded-xl rounded-tl-sm p-3 text-[13px] text-graphite-700 leading-relaxed card-shadow">
+                    {streamingText}
+                    <span className="inline-block w-1.5 h-4 bg-indigo-400 ml-0.5 animate-pulse rounded-full align-middle" />
+                  </div>
+                )}
+              </>
             )}
           </div>
-        ))}
 
-        {/* Thinking indicator */}
-        {isThinking && (
-          <div className="flex items-center gap-2 text-xs text-graphite-400">
-            <Loader2 className="w-3.5 h-3.5 animate-spin text-indigo-400" strokeWidth={2} />
-            <span className="font-medium">Thinking...</span>
+          {/* Input bar */}
+          <div className="border-t border-indigo-100 p-3 bg-white/70 shrink-0">
+            <div className="flex items-center gap-2 bg-white border border-graphite-200 rounded-lg px-3 py-2 focus-within:border-indigo-300 transition-colors">
+              <input
+                ref={inputRef}
+                type="text"
+                placeholder="Ask a question..."
+                className="flex-1 text-[13px] outline-none bg-transparent text-graphite-900 placeholder-graphite-400"
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                onKeyDown={(e) => e.key === 'Enter' && handleSubmit()}
+                disabled={isThinking || isStreaming}
+              />
+              <button
+                onClick={handleSubmit}
+                disabled={!input.trim() || isThinking || isStreaming}
+                className="w-7 h-7 rounded-md bg-indigo-400 flex items-center justify-center hover:bg-indigo-500 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+              >
+                <Send className="w-3.5 h-3.5 text-white" strokeWidth={2} />
+              </button>
+            </div>
           </div>
-        )}
-
-        {/* Streaming */}
-        {isStreaming && streamingText && (
-          <div className="bg-white hairline-border rounded-xl rounded-tl-sm p-3 text-[13px] text-graphite-700 leading-relaxed card-shadow">
-            {streamingText}
-            <span className="inline-block w-1.5 h-4 bg-indigo-400 ml-0.5 animate-pulse rounded-full align-middle" />
-          </div>
-        )}
-      </div>
-
-      {/* Suggestion chips */}
-      {conversations.length < 2 && !isThinking && !isStreaming && (
-        <div className="px-4 pb-2 flex flex-wrap gap-1.5">
-          {suggestions.map((q) => (
-            <button
-              key={q}
-              onClick={() => handleAsk(q)}
-              className="px-3 py-1.5 bg-white hairline-border rounded-full text-[11px] font-semibold text-graphite-600 hover:bg-indigo-50 hover:text-indigo-400 hover:border-indigo-200 transition-colors card-shadow"
-            >
-              {q}
-            </button>
-          ))}
         </div>
       )}
-
-      {/* Input */}
-      <div className="px-4 py-3 border-t border-indigo-100 flex gap-2">
-        <input
-          ref={inputRef}
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          onKeyDown={(e) => e.key === 'Enter' && handleAsk(input)}
-          placeholder="Ask a question..."
-          className="flex-1 bg-white hairline-border rounded-lg px-3 py-2 text-sm text-graphite-900 placeholder-graphite-400 focus:outline-none focus:ring-2 focus:ring-indigo-100 focus:border-indigo-400"
-          disabled={isThinking || isStreaming}
-        />
-        <button
-          onClick={() => handleAsk(input)}
-          disabled={!input.trim() || isThinking || isStreaming}
-          className="p-2 bg-indigo-400 text-white rounded-lg hover:bg-indigo-500 active:scale-[0.98] transition-all disabled:opacity-40 disabled:cursor-not-allowed"
-          aria-label="Send question"
-        >
-          <Send className="w-4 h-4" strokeWidth={1.5} />
-        </button>
-      </div>
-    </div>
+    </motion.div>
   );
 }
