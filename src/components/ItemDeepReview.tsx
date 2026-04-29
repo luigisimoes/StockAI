@@ -276,20 +276,43 @@ export default function ItemDeepReview({ itemId, onClose }: ItemDeepReviewProps)
                 <div className="mt-4 space-y-6">
                   <div className="bg-white border border-graphite-100 card-shadow rounded-xl p-6">
                     <h3 className="text-[11px] uppercase tracking-widest font-bold text-graphite-400 mb-4">14-Day Demand Forecast</h3>
-                    <div className="flex items-end gap-1 h-32">
-                      {rec.forecastDays.map((val, i) => {
-                        const maxVal = Math.max(...rec.forecastDays);
-                        const peak = rec.forecastDays.indexOf(maxVal);
-                        const isPeak = i >= Math.max(0, peak - 2) && i <= Math.min(13, peak + 2);
-                        const normalizedHeight = maxVal > 0 ? (val / maxVal) * 100 : 0;
-                        return (
-                          <div key={i} className="flex-1 flex flex-col items-center gap-1">
-                            <div className={cn("w-full rounded-t transition-all", isPeak ? "bg-indigo-400" : "bg-graphite-200")} style={{ height: `${normalizedHeight}%` }} />
-                            <span className="text-[9px] text-graphite-400 tabular-nums font-mono">{i + 1}</span>
-                          </div>
-                        );
-                      })}
+                    
+                    {(!rec.forecastDays || rec.forecastDays.length === 0) ? (
+                      <div className="h-32 flex items-center justify-center bg-graphite-50/50 rounded-lg">
+                        <p className="text-[12px] text-graphite-400 font-medium">No forecast data available</p>
+                      </div>
+                    ) : (
+                      <div className="h-32 flex items-end gap-1">
+                        {rec.forecastDays.map((val, i) => {
+                          const maxVal = Math.max(...rec.forecastDays.filter(v => v > 0), 1);
+                          const peak = rec.forecastDays.indexOf(Math.max(...rec.forecastDays));
+                          const isPeak = i >= Math.max(0, peak - 2) && i <= Math.min(13, peak + 2);
+                          const heightPx = Math.max((val / maxVal) * 120, 4);
+                          
+                          return (
+                            <div key={i} className="flex-1 h-full flex flex-col justify-end items-center gap-1">
+                              <div 
+                                className={cn(
+                                  "w-full rounded-t transition-all duration-700",
+                                  isPeak ? "bg-indigo-400" : "bg-graphite-200"
+                                )}
+                                style={{ height: `${heightPx}px` }}
+                              />
+                            </div>
+                          );
+                        })}
+                      </div>
+                    )}
+                    
+                    {/* Day labels separated row */}
+                    <div className="flex gap-1 mt-2">
+                      {Array.from({ length: 14 }).map((_, i) => (
+                        <span key={i} className="flex-1 text-center text-[9px] text-graphite-400 tabular-nums font-mono">
+                          {i + 1}
+                        </span>
+                      ))}
                     </div>
+                    
                     <div className="flex justify-between mt-3 text-[10px] font-bold text-graphite-400 uppercase tracking-widest">
                       <span>Day 1</span>
                       <span className="text-indigo-400">Peak demand window</span>
