@@ -9,11 +9,14 @@ import {
   HelpCircle,
 } from 'lucide-react';
 import { cn } from '../lib/utils';
+import { Tooltip, TooltipTrigger, TooltipContent } from '@/components/ui/tooltip';
 
 interface SidebarProps {
   activeTab: string;
   onTabChange: (tab: string) => void;
 }
+
+const ACTIVE_ID = 'recommendations';
 
 const navItems = [
   { id: 'dashboard', label: 'Dashboard', icon: LayoutGrid },
@@ -37,33 +40,71 @@ export default function Sidebar({ activeTab, onTabChange }: SidebarProps) {
       </div>
 
       <nav className="flex-1 space-y-1">
-        {navItems.map((item) => (
-          <button
-            key={item.id}
-            onClick={() => onTabChange(item.id)}
-            className={cn(
-              "w-full flex items-center gap-3 px-3 py-2.5 transition-all duration-150 rounded-lg text-left",
-              activeTab === item.id 
-                ? "bg-indigo-50 text-indigo-400" 
-                : "text-graphite-500 hover:bg-graphite-50"
-            )}
-          >
-            <item.icon className={cn("w-[18px] h-[18px]", activeTab === item.id ? "text-indigo-400" : "text-graphite-400")} strokeWidth={1.5} />
-            <span className="font-medium text-sm">{item.label}</span>
-          </button>
-        ))}
+        {navItems.map((item) => {
+          const isEnabled = item.id === ACTIVE_ID;
+          const isActive = activeTab === item.id;
+
+          if (!isEnabled) {
+            return (
+              <Tooltip key={item.id}>
+                <TooltipTrigger asChild>
+                  <div
+                    className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left opacity-40 cursor-not-allowed select-none"
+                    title="Coming in v1.1"
+                  >
+                    <item.icon className="w-[18px] h-[18px] text-graphite-400" strokeWidth={1.5} />
+                    <span className="font-medium text-sm text-graphite-500">{item.label}</span>
+                  </div>
+                </TooltipTrigger>
+                <TooltipContent side="right">
+                  <p className="text-xs">Coming in v1.1</p>
+                </TooltipContent>
+              </Tooltip>
+            );
+          }
+
+          return (
+            <button
+              key={item.id}
+              onClick={() => onTabChange(item.id)}
+              className={cn(
+                "w-full flex items-center gap-3 px-3 py-2.5 transition-all duration-150 rounded-lg text-left",
+                isActive
+                  ? "bg-indigo-50 text-indigo-400" 
+                  : "text-graphite-500 hover:bg-graphite-50"
+              )}
+            >
+              <item.icon className={cn("w-[18px] h-[18px]", isActive ? "text-indigo-400" : "text-graphite-400")} strokeWidth={1.5} />
+              <span className="font-medium text-sm">{item.label}</span>
+            </button>
+          );
+        })}
       </nav>
 
       <div className="mt-auto space-y-1 pt-4 border-t border-graphite-100">
-        <button className="w-full flex items-center gap-3 px-3 py-2.5 text-graphite-500 hover:bg-graphite-50 transition-colors duration-150 rounded-lg text-left">
-          <Settings className="w-[18px] h-[18px] text-graphite-400" strokeWidth={1.5} />
-          <span className="font-medium text-sm">Settings</span>
-        </button>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <div className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left opacity-40 cursor-not-allowed select-none" title="Coming in v1.1">
+              <Settings className="w-[18px] h-[18px] text-graphite-400" strokeWidth={1.5} />
+              <span className="font-medium text-sm text-graphite-500">Settings</span>
+            </div>
+          </TooltipTrigger>
+          <TooltipContent side="right">
+            <p className="text-xs">Coming in v1.1</p>
+          </TooltipContent>
+        </Tooltip>
         
-        <button className="w-full flex items-center gap-3 px-3 py-2.5 text-graphite-500 hover:bg-graphite-50 transition-colors duration-150 rounded-lg text-left">
-          <HelpCircle className="w-[18px] h-[18px] text-graphite-400" strokeWidth={1.5} />
-          <span className="font-medium text-sm">Support</span>
-        </button>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <div className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left opacity-40 cursor-not-allowed select-none" title="Coming in v1.1">
+              <HelpCircle className="w-[18px] h-[18px] text-graphite-400" strokeWidth={1.5} />
+              <span className="font-medium text-sm text-graphite-500">Support</span>
+            </div>
+          </TooltipTrigger>
+          <TooltipContent side="right">
+            <p className="text-xs">Coming in v1.1</p>
+          </TooltipContent>
+        </Tooltip>
       </div>
     </aside>
   );
