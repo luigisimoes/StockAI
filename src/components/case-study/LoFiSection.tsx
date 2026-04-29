@@ -207,29 +207,40 @@ export default function LoFiSection() {
                 </div>
 
                 {/* ZONE 3: Footer */}
-                <div className="bg-white border-t-2 border-graphite-200 p-3 flex items-center gap-3 relative" style={{ boxShadow: '0 -2px 8px rgba(0,0,0,0.04)' }}>
+                <div className="bg-white border-t-2 border-graphite-200 p-3 relative" style={{ boxShadow: '0 -2px 8px rgba(0,0,0,0.04)' }}>
                   <div className="absolute -top-px left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-indigo-300 to-transparent" />
                   <div className="absolute top-1 right-2 text-[8px] uppercase tracking-widest font-bold text-graphite-400">
                     Zone 3 · Footer
                   </div>
-                  <div className="space-y-1">
-                    <div className="h-1.5 w-12 bg-graphite-300 rounded" />
-                    <div className="h-7 w-24 bg-graphite-100 border border-graphite-200 rounded-md" />
-                  </div>
-                  <div className="flex-1 space-y-1">
-                    <div className="flex justify-between">
-                      <div className="h-1.5 w-10 bg-graphite-300 rounded" />
-                      <div className="h-1.5 w-16 bg-indigo-300 rounded" />
+
+                  {/* Row 1: configuration controls */}
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="space-y-1 flex-shrink-0">
+                      <div className="h-1.5 w-12 bg-graphite-300 rounded" />
+                      <div className="h-7 w-24 bg-graphite-100 border border-graphite-200 rounded-md" />
                     </div>
-                    <div className="h-1.5 w-full bg-graphite-200 rounded-full relative">
-                      <div className="absolute top-1/2 left-1/2 w-3 h-3 bg-indigo-400 rounded-full -translate-y-1/2" />
+                    <div className="flex-1 min-w-0 space-y-1">
+                      <div className="flex justify-between">
+                        <div className="h-1.5 w-10 bg-graphite-300 rounded" />
+                        <div className="h-1.5 w-16 bg-indigo-300 rounded" />
+                      </div>
+                      <div className="h-1.5 w-full bg-graphite-200 rounded-full relative">
+                        <div className="absolute top-1/2 left-1/2 w-3 h-3 bg-indigo-400 rounded-full -translate-y-1/2" />
+                      </div>
+                    </div>
+                    <div className="space-y-1 flex-shrink-0">
+                      <div className="h-1.5 w-12 bg-graphite-300 rounded" />
+                      <div className="h-5 w-16 bg-rose-200 rounded" />
                     </div>
                   </div>
-                  <div className="space-y-1">
-                    <div className="h-1.5 w-12 bg-graphite-300 rounded" />
-                    <div className="h-5 w-16 bg-rose-200 rounded" />
+
+                  {/* Row 2: primary CTA, right-aligned */}
+                  <div className="flex justify-end">
+                    <div className="h-9 w-32 bg-indigo-400 rounded-lg flex items-center justify-center gap-1.5">
+                      <div className="h-1.5 w-12 bg-white/40 rounded" />
+                      <div className="h-2 w-2 bg-white/40 rounded-sm" />
+                    </div>
                   </div>
-                  <div className="h-9 w-28 bg-indigo-400 rounded-lg" />
                 </div>
               </div>
             </div>
