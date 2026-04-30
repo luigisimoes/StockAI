@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import CaseStudyPage from './pages/CaseStudyPage';
 import AppPage from './pages/AppPage';
 import LoFiExportPage from './pages/LoFiExportPage';
+import FlowExportPage from './pages/FlowExportPage';
 import { Toaster } from '@/components/ui/sonner';
 import './index.css';
 
@@ -14,6 +15,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         <Route path="/" element={<CaseStudyPage />} />
         <Route path="/app" element={<AppPage />} />
         <Route path="/lofi-export" element={<LoFiExportPage />} />
+        <Route path="/flow-export" element={<FlowExportPage />} />
       </Routes>
       <Toaster />
     </BrowserRouter>

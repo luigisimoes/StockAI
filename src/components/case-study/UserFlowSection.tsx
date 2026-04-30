@@ -1,12 +1,18 @@
 import React from 'react';
+import { ExternalLink } from 'lucide-react';
 import ExpandableSection from './shared/ExpandableSection';
+import UserFlowDiagram from './UserFlowDiagram';
 
 /**
- * User flow comparison � current 3-screen flow vs proposed 1+drawer flow.
+ * User flow section comparing current 3-screen flow to proposed
+ * 1-dashboard + drawer flow.
  *
- * Side-by-side numbered step lists with time estimates. The current flow
- * uses rose accents (pain), the proposed flow uses indigo (solution).
- * Below: a Figma file slot (placeholder until link is ready).
+ * Renders an inline flowchart (UserFlowDiagram) rather than linking
+ * out to Figma. The same diagram is also available standalone at
+ * /flow-export for html.to.design import into FigJam.
+ *
+ * The "Open on FigJam" button below the diagram links to the FigJam
+ * board version when populated. Until then, points to /flow-export.
  */
 export default function UserFlowSection() {
   return (
@@ -14,71 +20,45 @@ export default function UserFlowSection() {
       id="user-flow"
       eyebrow="03 · User flow"
       title="From 3 screens to 1 dashboard + drawer."
-      summary="The original flow walks Maya through three pages to approve one rec. The new flow puts the queue, the reasoning, and the decision on one surface. Scan, click, approve. Open the drawer when a rec needs more thought."
+      summary="The original flow walks Maya through three pages to approve one rec. The new flow puts the queue, the reasoning, and the decision on one surface. Bulk-approve the easy ones, drill into the hard ones via drawer."
+      background="white"
     >
-      <div className="space-y-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="bg-white border border-graphite-100 rounded-xl p-6 card-shadow">
-            <p className="text-[11px] uppercase tracking-widest font-bold text-rose-500 mb-3">
-              Current flow (3 screens)
-            </p>
-            <div className="space-y-3 text-sm">
-              {['Browse SKU list', 'Click into SKU detail', 'Configure the transfer', 'Submit, exit, repeat 47 times'].map((s, i) => (
-                <div key={i} className="flex items-center gap-3">
-                  <div className="w-6 h-6 rounded-full bg-graphite-100 flex items-center justify-center text-[10px] font-bold font-mono text-graphite-500">
-                    {String(i + 1).padStart(2, '0')}
-                  </div>
-                  <span className="text-graphite-700">{s}</span>
-                </div>
-              ))}
-            </div>
-            <p className="text-[11px] text-graphite-500 mt-4 font-mono">~6 min per rec · 47 recs/day</p>
-          </div>
+      <div className="space-y-8 pt-4">
+        <UserFlowDiagram />
 
-          <div className="bg-indigo-50 border border-indigo-200 rounded-xl p-6 card-shadow">
-            <p className="text-[11px] uppercase tracking-widest font-bold text-indigo-600 mb-3">
-              Proposed flow (1 + drawer)
-            </p>
-            <div className="space-y-3 text-sm">
-              {['Open the dashboard, scan the queue', 'Bulk-approve the high-confidence batch', 'Open the drawer for high-stakes recs', 'Adjust inline, approve, next'].map((s, i) => (
-                <div key={i} className="flex items-center gap-3">
-                  <div className="w-6 h-6 rounded-full bg-indigo-200 flex items-center justify-center text-[10px] font-bold font-mono text-indigo-700">
-                    {String(i + 1).padStart(2, '0')}
-                  </div>
-                  <span className="text-graphite-900">{s}</span>
-                </div>
-              ))}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4">
+          {[
+            {
+              title: 'Reduced cognitive load',
+              body: 'From 3 mental models per rec (browse, configure, submit) to 1 (scan dashboard). Drawer adds depth on demand.',
+            },
+            {
+              title: 'Bulk capability',
+              body: "Maya's 47-rec queue gets triaged. High-confidence recs auto-approved or batch-approved. She focuses attention on the 12-15 recs that genuinely need it.",
+            },
+            {
+              title: 'Context preserved',
+              body: 'Every approval decision happens with full reasoning visible. No tab switching to Excel. No lost context.',
+            },
+          ].map((card) => (
+            <div key={card.title} className="bg-white border border-graphite-100 rounded-xl p-5 card-shadow">
+              <p className="text-sm font-bold text-graphite-900 mb-2">{card.title}</p>
+              <p className="text-[13px] text-graphite-600 leading-relaxed">{card.body}</p>
             </div>
-            <p className="text-[11px] text-indigo-600 mt-4 font-mono font-bold">~90 sec avg per rec, hypothesis pending validation</p>
-          </div>
+          ))}
         </div>
 
-        {/* Figma file slot — replace href with Figma URL when ready */}
-        <a 
-          href="#"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="block bg-graphite-50 border border-dashed border-graphite-200 rounded-xl p-8 text-center hover:bg-graphite-100/50 hover:border-indigo-200 transition-colors group"
-          onClick={(e) => {
-            e.preventDefault();
-            alert('Figma file link coming soon');
-          }}
-        >
-          <div className="inline-flex items-center gap-2 mb-2">
-            <svg className="w-4 h-4 text-graphite-400 group-hover:text-indigo-500 transition-colors" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 12a3 3 0 1 1 0-6 3 3 0 0 1 0 6zM6 6a3 3 0 0 1 3-3h3v6H9a3 3 0 0 1-3-3zM12 3h3a3 3 0 1 1 0 6h-3V3zM6 12a3 3 0 0 1 3-3h3v6H9a3 3 0 0 1-3-3zM6 18a3 3 0 0 1 3-3h3v3a3 3 0 1 1-6 0z"/>
-            </svg>
-            <p className="text-[11px] uppercase tracking-widest font-bold text-graphite-400 group-hover:text-indigo-500 transition-colors">
-              Detailed flow diagram in Figma
-            </p>
-          </div>
-          <p className="text-sm text-graphite-600 group-hover:text-graphite-900 transition-colors">
-            Problem framing, design audit, user flow, lo-fi wireframes, and hi-fi UI as 5 dedicated pages
-          </p>
-          <p className="text-[11px] text-graphite-400 font-mono mt-2 group-hover:text-indigo-400 transition-colors">
-            Coming soon · click to open when ready →
-          </p>
-        </a>
+        <div className="flex justify-center pt-4">
+          <a
+            href="https://www.figma.com/board/REPLACE_WITH_FIGJAM_LINK"
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-1.5 px-4 py-2.5 bg-white border border-graphite-200 rounded-lg text-sm font-bold text-graphite-700 hover:bg-graphite-50 hover:border-graphite-300 transition-colors card-shadow"
+          >
+            <span>Open the full board on FigJam</span>
+            <ExternalLink className="w-3.5 h-3.5" strokeWidth={2} />
+          </a>
+        </div>
       </div>
     </ExpandableSection>
   );
