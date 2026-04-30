@@ -55,6 +55,33 @@ export default function HeroSection() {
           </div>
         </div>
       </div>
+
+      {/* Loom video slot */}
+      <div className="max-w-[860px] mx-auto mt-16 px-6">
+        <p className="text-[10px] uppercase tracking-widest font-bold text-indigo-500 text-center mb-3">
+          90-second walkthrough
+        </p>
+        <div className="relative rounded-2xl overflow-hidden bg-graphite-900 shadow-xl shadow-indigo-400/10 aspect-video">
+          {/* PLACEHOLDER STATE — replace src with Loom embed when ready */}
+          <div className="absolute inset-0 flex flex-col items-center justify-center text-white">
+            <div className="w-16 h-16 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center mb-4 border border-white/20">
+              <svg className="w-7 h-7 ml-1" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+            <p className="text-sm font-medium text-white/80">Loom walkthrough coming soon</p>
+            <p className="text-[11px] text-white/40 font-mono mt-1">90 seconds · live demo</p>
+          </div>
+
+          {/* WHEN LOOM IS READY: uncomment this and remove placeholder above
+          <iframe
+            src="https://www.loom.com/embed/YOUR_LOOM_ID_HERE"
+            title="StockAI Replenishment 90-second walkthrough"
+            frameBorder="0"
+            allowFullScreen
+            className="absolute inset-0 w-full h-full"
+          />
+          */}
+        </div>
+      </div>
     </section>
   );
 }

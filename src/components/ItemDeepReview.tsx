@@ -140,13 +140,24 @@ export default function ItemDeepReview({ itemId, onClose }: ItemDeepReviewProps)
           <div className="px-8 py-6 space-y-6">
             {/* Stats Grid — floating white cards */}
             <div className="grid grid-cols-4 gap-4 flex-shrink-0">
-              <div className="p-4 bg-white border border-graphite-100 card-shadow rounded-xl">
-                <p className="text-[10px] font-bold text-graphite-400 uppercase tracking-widest mb-2 leading-tight">Recommended action</p>
-                <p className="text-xl font-display font-bold text-indigo-400 tabular-nums">{baseUnits > 0 ? '+' : ''}{baseUnits.toLocaleString()} units</p>
+              {/* Recommended Action — indigo accent */}
+              <div className="p-4 bg-indigo-50/50 border border-indigo-100 border-l-[3px] border-l-indigo-400 card-shadow rounded-xl">
+                <p className="text-[10px] font-bold text-indigo-600 uppercase tracking-widest mb-2 leading-tight">Recommended action</p>
+                <p className="text-xl font-display font-bold text-indigo-500 tabular-nums">{baseUnits > 0 ? '+' : ''}{baseUnits.toLocaleString()} units</p>
                 <p className="text-[11px] text-graphite-500 mt-2 font-medium">{rec.statCard.nextRestockGap}</p>
               </div>
-              <div className="p-4 bg-white border border-graphite-100 card-shadow rounded-xl">
-                <p className="text-[10px] font-bold text-graphite-400 uppercase tracking-widest mb-2 leading-tight">Projected revenue</p>
+
+              {/* Projected Revenue — emerald or rose accent */}
+              <div className={cn(
+                "p-4 border border-l-[3px] card-shadow rounded-xl",
+                rec.baseImpact >= 0 
+                  ? "bg-emerald-50/50 border-emerald-100 border-l-emerald-500" 
+                  : "bg-rose-50/40 border-rose-100 border-l-rose-500"
+              )}>
+                <p className={cn(
+                  "text-[10px] font-bold uppercase tracking-widest mb-2 leading-tight",
+                  rec.baseImpact >= 0 ? "text-emerald-700" : "text-rose-600"
+                )}>Projected revenue</p>
                 <p className={cn("text-xl font-display font-bold tabular-nums", rec.baseImpact >= 0 ? "text-emerald-600" : "text-rose-600")}>
                   {rec.baseImpact >= 0 ? '+' : '-'}${(Math.abs(rec.baseImpact) / 1000).toFixed(1)}K
                 </p>
@@ -155,15 +166,19 @@ export default function ItemDeepReview({ itemId, onClose }: ItemDeepReviewProps)
                   {rec.statCard.forecastDelta}
                 </div>
               </div>
-              <div className="p-4 bg-white border border-graphite-100 card-shadow rounded-xl">
-                <p className="text-[10px] font-bold text-graphite-400 uppercase tracking-widest mb-2 leading-tight">Days of cover</p>
+
+              {/* Days of Cover — graphite accent (neutral) */}
+              <div className="p-4 bg-white border border-graphite-100 border-l-[3px] border-l-graphite-400 card-shadow rounded-xl">
+                <p className="text-[10px] font-bold text-graphite-500 uppercase tracking-widest mb-2 leading-tight">Days of cover</p>
                 <div className="text-xl font-display font-bold text-graphite-900 tabular-nums flex items-baseline gap-2">
                   {rec.statCard.daysOfCoverCurrent} <ArrowRight className="w-3 h-3 text-graphite-300" strokeWidth={1.5} /> {rec.statCard.daysOfCoverProjected}
                 </div>
                 <p className="text-[11px] text-graphite-500 mt-2 font-medium">Target: {rec.statCard.coverTarget} days</p>
               </div>
-              <div className="p-4 bg-rose-50 border border-rose-100 card-shadow rounded-xl">
-                <p className="text-[10px] font-bold text-rose-500 uppercase tracking-widest mb-2 leading-tight">If you don't act</p>
+
+              {/* If you don't act — rose accent (warning) */}
+              <div className="p-4 bg-rose-50/60 border border-rose-100 border-l-[3px] border-l-rose-500 card-shadow rounded-xl">
+                <p className="text-[10px] font-bold text-rose-600 uppercase tracking-widest mb-2 leading-tight">If you don't act</p>
                 <p className="text-xl font-display font-bold text-rose-600 tabular-nums">
                   {isOverstock ? '' : '-'}${(Math.abs(rec.baseImpact) / 1000).toFixed(0)}K
                 </p>
@@ -176,28 +191,28 @@ export default function ItemDeepReview({ itemId, onClose }: ItemDeepReviewProps)
 
             {/* ─── Tabs ─── */}
             <Tabs value={activeTab} onValueChange={setActiveTab}>
-              <TabsList className="h-auto p-0 bg-transparent border-b border-graphite-200 rounded-none w-full justify-start gap-6 px-0">
+              <TabsList className="h-auto p-0 bg-transparent border-b border-graphite-200 rounded-none w-full justify-start gap-7 pl-0 pr-0">
                 <TabsTrigger 
                   value="why" 
-                  className="px-0 pb-3 pt-2 bg-transparent rounded-none border-b-2 border-transparent data-[state=active]:border-indigo-400 data-[state=active]:text-indigo-500 data-[state=active]:bg-transparent data-[state=active]:shadow-none text-graphite-500 hover:text-graphite-900 font-bold text-sm transition-colors"
+                  className="px-1 pb-3 pt-2 bg-transparent rounded-none border-b-2 border-transparent data-[state=active]:border-indigo-400 data-[state=active]:text-indigo-500 data-[state=active]:bg-transparent data-[state=active]:shadow-none text-graphite-500 hover:text-graphite-900 font-bold text-sm transition-colors"
                 >
                   Why this rec?
                 </TabsTrigger>
                 <TabsTrigger 
                   value="forecast" 
-                  className="px-0 pb-3 pt-2 bg-transparent rounded-none border-b-2 border-transparent data-[state=active]:border-indigo-400 data-[state=active]:text-indigo-500 data-[state=active]:bg-transparent data-[state=active]:shadow-none text-graphite-500 hover:text-graphite-900 font-bold text-sm transition-colors"
+                  className="px-1 pb-3 pt-2 bg-transparent rounded-none border-b-2 border-transparent data-[state=active]:border-indigo-400 data-[state=active]:text-indigo-500 data-[state=active]:bg-transparent data-[state=active]:shadow-none text-graphite-500 hover:text-graphite-900 font-bold text-sm transition-colors"
                 >
                   Forecast
                 </TabsTrigger>
                 <TabsTrigger 
                   value="alternatives" 
-                  className="px-0 pb-3 pt-2 bg-transparent rounded-none border-b-2 border-transparent data-[state=active]:border-indigo-400 data-[state=active]:text-indigo-500 data-[state=active]:bg-transparent data-[state=active]:shadow-none text-graphite-500 hover:text-graphite-900 font-bold text-sm transition-colors"
+                  className="px-1 pb-3 pt-2 bg-transparent rounded-none border-b-2 border-transparent data-[state=active]:border-indigo-400 data-[state=active]:text-indigo-500 data-[state=active]:bg-transparent data-[state=active]:shadow-none text-graphite-500 hover:text-graphite-900 font-bold text-sm transition-colors"
                 >
                   Alternatives
                 </TabsTrigger>
                 <TabsTrigger 
                   value="activity" 
-                  className="px-0 pb-3 pt-2 bg-transparent rounded-none border-b-2 border-transparent data-[state=active]:border-indigo-400 data-[state=active]:text-indigo-500 data-[state=active]:bg-transparent data-[state=active]:shadow-none text-graphite-500 hover:text-graphite-900 font-bold text-sm transition-colors"
+                  className="px-1 pb-3 pt-2 bg-transparent rounded-none border-b-2 border-transparent data-[state=active]:border-indigo-400 data-[state=active]:text-indigo-500 data-[state=active]:bg-transparent data-[state=active]:shadow-none text-graphite-500 hover:text-graphite-900 font-bold text-sm transition-colors"
                 >
                   Activity
                 </TabsTrigger>
@@ -472,15 +487,18 @@ export default function ItemDeepReview({ itemId, onClose }: ItemDeepReviewProps)
 
           {/* Live Impact + Approve */}
           <div className="flex items-center gap-5 shrink-0">
-            <div className="text-right">
-              <p className="text-[10px] font-bold text-graphite-400 uppercase tracking-widest">Live Impact</p>
-              <p className={cn("text-lg font-display font-bold tabular-nums", liveImpact >= 0 ? "text-emerald-600" : "text-rose-600")}>
+            <div className="shrink-0 flex flex-col items-start">
+              <div className="text-[10px] font-bold text-graphite-400 uppercase tracking-widest mb-0.5">Live impact</div>
+              <div className={cn(
+                "text-2xl font-display font-bold tabular-nums leading-none",
+                liveImpact >= 0 ? "text-emerald-600" : "text-rose-600"
+              )}>
                 {liveImpact >= 0 ? '+' : '-'}${Math.abs(liveImpact).toLocaleString()}
-              </p>
+              </div>
             </div>
             <button
               onClick={handleApprove}
-              className="bg-indigo-400 text-white hover:bg-indigo-500 active:scale-[0.98] px-7 py-3 rounded-xl font-bold text-sm shadow-lg shadow-indigo-400/30 transition-all flex items-center gap-2 group whitespace-nowrap"
+              className="bg-indigo-400 text-white hover:bg-indigo-500 active:scale-[0.98] px-6 py-2.5 rounded-lg font-bold text-sm shadow-md shadow-indigo-400/25 transition-all flex items-center gap-2 group whitespace-nowrap"
             >
               Approve · {units > 0 ? '+' : ''}{units.toLocaleString()}
               <Rocket className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" strokeWidth={2} />

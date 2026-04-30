@@ -46,14 +46,32 @@ export default function UserFlowSection() {
           </div>
         </div>
 
-        <div className="bg-graphite-50 border border-dashed border-graphite-200 rounded-xl p-8 text-center">
-          <p className="text-[11px] uppercase tracking-widest font-bold text-graphite-400 mb-2">
-            Detailed flow diagram
+        {/* Figma file slot — replace href with Figma URL when ready */}
+        <a 
+          href="#"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="block bg-graphite-50 border border-dashed border-graphite-200 rounded-xl p-8 text-center hover:bg-graphite-100/50 hover:border-indigo-200 transition-colors group"
+          onClick={(e) => {
+            e.preventDefault();
+            alert('Figma file link coming soon');
+          }}
+        >
+          <div className="inline-flex items-center gap-2 mb-2">
+            <svg className="w-4 h-4 text-graphite-400 group-hover:text-indigo-500 transition-colors" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 12a3 3 0 1 1 0-6 3 3 0 0 1 0 6zM6 6a3 3 0 0 1 3-3h3v6H9a3 3 0 0 1-3-3zM12 3h3a3 3 0 1 1 0 6h-3V3zM6 12a3 3 0 0 1 3-3h3v6H9a3 3 0 0 1-3-3zM6 18a3 3 0 0 1 3-3h3v3a3 3 0 1 1-6 0z"/>
+            </svg>
+            <p className="text-[11px] uppercase tracking-widest font-bold text-graphite-400 group-hover:text-indigo-500 transition-colors">
+              Detailed flow diagram in Figma
+            </p>
+          </div>
+          <p className="text-sm text-graphite-600 group-hover:text-graphite-900 transition-colors">
+            Problem framing, design audit, user flow, lo-fi wireframes, and hi-fi UI as 5 dedicated pages
           </p>
-          <p className="text-sm text-graphite-600">
-            Available in the Figma file, page "User Flow"
+          <p className="text-[11px] text-graphite-400 font-mono mt-2 group-hover:text-indigo-400 transition-colors">
+            Coming soon · click to open when ready →
           </p>
-        </div>
+        </a>
       </div>
     </ExpandableSection>
   );

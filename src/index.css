@@ -70,6 +70,22 @@
   body {
     @apply bg-snow text-graphite-900 font-sans antialiased;
   }
+
+  /* Brand-aligned focus ring for keyboard navigation */
+  button:focus-visible,
+  a:focus-visible,
+  [role="button"]:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px white, 0 0 0 4px rgb(95 168 211 / 0.5);
+    border-radius: 0.5rem;
+  }
+
+  /* Suppress default focus outline */
+  button:focus,
+  a:focus,
+  [role="button"]:focus {
+    outline: none;
+  }
 }
 
 @layer utilities {
