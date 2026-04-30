@@ -11,6 +11,16 @@ const sections = [
   { id: 'outcomes', label: 'Outcomes' },
 ];
 
+/**
+ * Sticky top navigation for the case study site.
+ *
+ * Transparent at page top, gains background and shadow after scrolling
+ * 80px so it doesn't fight the hero. Active section highlights via
+ * scroll-position comparison against section offsetTop values.
+ *
+ * Anchor links hidden under md breakpoint — mobile users get logo +
+ * Live Prototype CTA only.
+ */
 export default function StickyTopNav() {
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('');

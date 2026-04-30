@@ -2,6 +2,14 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ExternalLink, Maximize2 } from 'lucide-react';
 
+/**
+ * Hi-fi section — embeds the actual deployed product as an iframe.
+ *
+ * The iframe loads `/app` with sandbox restrictions for security.
+ * Browser chrome mockup (traffic light dots + URL bar) frames the embed
+ * to signal it is a live application. Responsive height scales from
+ * 500px (mobile) to 820px (desktop).
+ */
 export default function HiFiSection() {
   return (
     <section id="hi-fi" className="py-16 md:py-20 bg-gradient-to-b from-indigo-50/30 via-white to-white">

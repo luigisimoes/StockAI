@@ -24,6 +24,20 @@ function getConfidenceStyles(tier: 'high' | 'medium' | 'low') {
   }
 }
 
+/**
+ * Main dashboard view — KPI summary, triage banner, and recommendation feed.
+ *
+ * Top row: 4 KPI cards (revenue, stockouts, capital, AI accuracy).
+ * Triage banner: auto-approve summary with audit/undo links.
+ * Feed: 8 AI recommendations rendered as interactive rows — each row
+ * opens the deep-review drawer on click. Rows support checkbox
+ * multi-select for bulk approval.
+ *
+ * A floating approval bar appears at the bottom when 1+ items are
+ * selected, sliding away when the drawer is open to avoid z-index
+ * conflicts. Filter pills (All, High conf., Stockout risk, Overstock)
+ * and a text search narrow the visible recommendations.
+ */
 export default function ReplenishmentView() {
   const selectedIds = useStore((s) => s.selectedIds);
   const toggleSelect = useStore((s) => s.toggleSelect);
@@ -267,7 +281,9 @@ export default function ReplenishmentView() {
         })}
       </div>
 
-      {/* Floating Approval Bar */}
+      {/* Floating approval bar hides when the drawer is open. Two reasons:
+          1. The drawer's own approve CTA takes priority for single-item flow
+          2. A floating bar behind an 880px drawer creates z-index confusion */}
       <div className={cn(
         "fixed bottom-8 left-1/2 -translate-x-1/2 z-50 transition-all duration-300",
         isDrawerOpen ? "opacity-0 translate-y-4 pointer-events-none" :

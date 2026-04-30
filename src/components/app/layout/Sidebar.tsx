@@ -28,6 +28,18 @@ const navItems = [
   { id: 'insights', label: 'Insights', icon: Lightbulb },
 ];
 
+/**
+ * Fixed left sidebar with brand mark and primary navigation.
+ *
+ * Only "Replenishment" is active — all other nav items are disabled
+ * with a "Coming in v1.1" tooltip. This is intentional scope: the
+ * brief asked for one feature redesigned end to end, not five features
+ * at 20% depth. The disabled items signal the product context without
+ * pretending the prototype covers more than it does.
+ *
+ * Includes a "Back to case study" link at the top so recruiters can
+ * return to the narrative from the live product.
+ */
 export default function Sidebar({ activeTab, onTabChange }: SidebarProps) {
   return (
     <aside className="fixed left-0 top-0 h-screen w-[240px] border-r border-graphite-100 bg-white z-50 flex flex-col py-6 px-4">

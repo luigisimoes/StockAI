@@ -16,6 +16,18 @@ const REASONS = [
   'Other',
 ];
 
+/**
+ * Dismiss-with-reason popover for individual recommendations.
+ *
+ * Dismissal requires a reason — this isn't a UX hurdle, it's the
+ * feedback loop that trains the model. Five preset reasons cover
+ * the most common dismiss patterns in inventory management, plus
+ * a free-text "Other" option. The popover resets state on close
+ * so it's clean for the next use.
+ *
+ * @param onDismiss - Called with the selected reason string on confirm
+ * @param children - Trigger element (typically the Dismiss button)
+ */
 export default function DismissReasonPopover({ onDismiss, children }: DismissReasonPopoverProps) {
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState<string | null>(null);

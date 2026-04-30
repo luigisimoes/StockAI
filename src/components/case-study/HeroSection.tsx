@@ -2,6 +2,16 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Sparkles } from 'lucide-react';
 
+/**
+ * Hero section of the case study site.
+ *
+ * Sets up the narrative arc: 4-day Foundey challenge, single-feature
+ * redesign, transparent AI co-pilot. Below the meta strip sits a Loom
+ * video slot (placeholder until recording is ready).
+ *
+ * Typography scales aggressively across breakpoints (3xl to 6xl) to
+ * preserve impact at every screen width.
+ */
 export default function HeroSection() {
   return (
     <section className="relative pt-24 md:pt-32 pb-16 md:pb-24 overflow-hidden">

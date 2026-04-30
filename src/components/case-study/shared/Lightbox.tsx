@@ -7,6 +7,14 @@ interface LightboxProps {
   onClose: () => void;
 }
 
+/**
+ * Full-viewport image overlay for case study screenshots.
+ *
+ * Locks body scroll while open, dismisses on Escape key or backdrop
+ * click. Uses Framer Motion for fade + scale entrance. Images are
+ * loaded from `/audit-screenshots/` and constrained to 92vw × 88vh
+ * to keep whitespace around the edges.
+ */
 export default function Lightbox({ image, onClose }: LightboxProps) {
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {

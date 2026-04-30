@@ -1,6 +1,13 @@
 import React from 'react';
 import ExpandableSection from './shared/ExpandableSection';
 
+/**
+ * User flow comparison — current 3-screen flow vs proposed 1+drawer flow.
+ *
+ * Side-by-side numbered step lists with time estimates. The current flow
+ * uses rose accents (pain), the proposed flow uses indigo (solution).
+ * Below: a Figma file slot (placeholder until link is ready).
+ */
 export default function UserFlowSection() {
   return (
     <ExpandableSection

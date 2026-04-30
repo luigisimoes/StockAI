@@ -13,6 +13,13 @@ const issues = [
   { n: 8, severity: 'low', title: 'Cluttered table', screen: 'Home', desc: 'Too many columns competing for attention. No priority sort.' },
 ];
 
+/**
+ * Design audit section — screenshots from the original StockAI brief.
+ *
+ * Four screens (home, step-1 through step-3) with a lightbox for full-size
+ * viewing. Below the screenshots: a severity-tagged issues grid showing
+ * specific UX problems found during the audit.
+ */
 export default function AuditSection() {
   const [lightboxImage, setLightboxImage] = useState<string | null>(null);
 

@@ -6,6 +6,18 @@ import { useStore } from '@/lib/store';
 import { recommendations } from '@/lib/mock-data';
 import { toast } from 'sonner';
 
+/**
+ * Bulk approval confirmation dialog.
+ *
+ * Opens when the user clicks "Approve N" in the floating action bar.
+ * Shows aggregate stats (total units, revenue, capital), vendor
+ * breakdown, and top 5 largest orders so the user understands the
+ * full impact before committing. Warns if any low-confidence items
+ * are included in the selection.
+ *
+ * On confirm, all selected recommendations are approved atomically
+ * with a single toast that supports undo.
+ */
 export default function BulkApproveDialog() {
   const open = useStore((s) => s.bulkDialogOpen);
   const closeBulkDialog = useStore((s) => s.closeBulkDialog);

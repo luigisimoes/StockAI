@@ -15,6 +15,22 @@ interface AskAiPanelProps {
   activeTab: string;
 }
 
+/**
+ * Persistent inline AI co-pilot strip for the drawer.
+ *
+ * Sits between the stat cards and the tabs, always visible. Two states:
+ * collapsed (60px tall, shows 2 suggestion chips matching the active tab)
+ * and expanded (380px tall, full conversation with input bar). Animation
+ * via Framer Motion spring. The AI never overlays content — expanding
+ * pushes content below it down.
+ *
+ * Suggestion chips dynamically switch when the user changes tabs, so the
+ * AI's suggestions stay relevant to what the user is currently looking at.
+ * Conversation history persists in Zustand per recommendation ID.
+ *
+ * @param recId - Recommendation ID to scope the conversation
+ * @param activeTab - Currently active drawer tab (why/forecast/alternatives/activity)
+ */
 export default function AskAiPanel({ recId, activeTab }: AskAiPanelProps) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [input, setInput] = useState('');
@@ -120,6 +136,9 @@ export default function AskAiPanel({ recId, activeTab }: AskAiPanelProps) {
     if (input.trim()) handleAsk(input);
   }
 
+  // AI strip uses Framer Motion `layout` + spring for smooth height transitions.
+  // damping: 25, stiffness: 200 produces a quick but not bouncy ease that
+  // matches the rest of the app's motion language.
   return (
     <motion.div
       layout

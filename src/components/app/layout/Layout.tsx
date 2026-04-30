@@ -8,6 +8,13 @@ interface LayoutProps {
   onTabChange: (tab: string) => void;
 }
 
+/**
+ * App shell layout — sidebar, top bar, and scrollable main area.
+ *
+ * Fixed 240px sidebar on the left, 56px top bar, and a fluid main
+ * area constrained to 1440px. Includes a skip-to-content link for
+ * keyboard accessibility (WCAG 2.1 bypass block requirement).
+ */
 export default function Layout({ children, activeTab, onTabChange }: LayoutProps) {
   return (
     <div className="min-h-screen bg-snow">

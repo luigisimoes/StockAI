@@ -10,6 +10,15 @@ import {
 import { useStore } from '@/lib/store';
 import { toast } from 'sonner';
 
+/**
+ * Fixed top bar with search, sub-navigation tabs, and user controls.
+ *
+ * Spans the area right of the sidebar (calc 100% - 240px). Uses
+ * backdrop-blur for a frosted-glass effect over scrolling content.
+ * The Maya Chen avatar dropdown includes a "Reset demo" action that
+ * clears all approvals, dismissals, and selections — essential for
+ * recruiter walkthroughs where state persists via localStorage.
+ */
 export default function TopBar() {
   const resetAll = useStore((s) => s.resetAll);
 

@@ -11,6 +11,17 @@ interface ExpandableSectionProps {
   background?: 'white' | 'cool-gray' | 'indigo-tint';
 }
 
+/**
+ * Progressive-disclosure wrapper for case study sections.
+ *
+ * Shows eyebrow, title, and summary by default. A "Read more" toggle
+ * reveals the full content with a height animation (Framer Motion).
+ * This keeps the case study scannable — recruiters can read summaries
+ * quickly, then expand sections they care about.
+ *
+ * Three background variants (white, cool-gray, indigo-tint) create
+ * visual rhythm between adjacent sections.
+ */
 export default function ExpandableSection({ 
   id, eyebrow, title, summary, children, background = 'white' 
 }: ExpandableSectionProps) {

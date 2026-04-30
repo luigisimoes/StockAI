@@ -1,6 +1,17 @@
 import React from 'react';
 import ExpandableSection from './shared/ExpandableSection';
 
+/**
+ * Lo-fi wireframe section of the case study site.
+ *
+ * Renders two interactive wireframes (dashboard + drawer) built entirely
+ * in HTML/CSS — no images. This proves layout decisions were locked before
+ * any pixel work in Figma. The wireframes include a mobile fallback at
+ * 768px since the dashboard layout can't compress meaningfully.
+ *
+ * Wrapped in ExpandableSection so the page stays scannable — readers who
+ * want to skip wireframes can jump straight to hi-fi.
+ */
 export default function LoFiSection() {
   return (
     <ExpandableSection

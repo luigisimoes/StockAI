@@ -8,6 +8,16 @@ import BulkApproveDialog from '@/components/app/dialogs/BulkApproveDialog';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { useStore } from '@/lib/store';
 
+/**
+ * Live product page (`/app` route).
+ *
+ * Under 768px: shows a 'Best viewed on desktop' message with a CTA back to
+ * the case study. This is intentional — making the 880px drawer responsive
+ * at 320px would require a fundamentally different layout.
+ *
+ * At 768px+: renders the full Layout with sidebar, topbar, dashboard, and
+ * the deep-review drawer when a recommendation is selected.
+ */
 export default function AppPage() {
   const selectedItemId = useStore((s) => s.selectedItemId);
   const closeDrawer = useStore((s) => s.closeDrawer);

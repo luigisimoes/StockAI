@@ -9,6 +9,13 @@ const principles = [
   { n: '05', title: 'AI on tap, not in the way', desc: 'The co-pilot is always there, never blocks the workflow.' },
 ];
 
+/**
+ * Problem framing section — introduces Maya Chen and her daily pain.
+ *
+ * Establishes the user persona (inventory manager, 1200 SKUs, 8 warehouses)
+ * and why she doesn't trust AI recommendations. The Excel spreadsheet
+ * detail anchors the problem in reality, not abstraction.
+ */
 export default function ProblemSection() {
   return (
     <ExpandableSection

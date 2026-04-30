@@ -9,6 +9,14 @@ import HiFiSection from '@/components/case-study/HiFiSection';
 import OutcomesSection from '@/components/case-study/OutcomesSection';
 import Footer from '@/components/case-study/Footer';
 
+/**
+ * Root page for the case study site (`/` route).
+ *
+ * Composes the full narrative: sticky nav, hero, problem, audit, user flow,
+ * lo-fi wireframes, hi-fi live prototype, outcomes, and footer. Each section
+ * is a self-contained component with its own responsive layout. The page
+ * includes a skip-to-content link for keyboard accessibility.
+ */
 export default function CaseStudyPage() {
   return (
     <div className="min-h-screen bg-white text-graphite-900">

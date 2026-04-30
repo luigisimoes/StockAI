@@ -23,6 +23,13 @@ const benchmarks = [
   },
 ];
 
+/**
+ * Outcomes section — hypothesis targets, not measured results.
+ *
+ * Three benchmark cards sourced from public retail case studies
+ * (Hackett Group, River Island, Bain and Company). These are the targets
+ * the redesign is built to hit, not proof of achievement.
+ */
 export default function OutcomesSection() {
   return (
     <ExpandableSection

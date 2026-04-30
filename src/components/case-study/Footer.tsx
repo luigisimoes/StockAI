@@ -2,6 +2,14 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Github, ExternalLink, Mail } from 'lucide-react';
 
+/**
+ * Case study site footer with credits and navigation links.
+ *
+ * Two-column layout: left side credits the challenge context,
+ * right side links to the live prototype, GitHub, portfolio,
+ * and email. Below-the-fold position means this only renders
+ * for readers who made it through the full narrative.
+ */
 export default function Footer() {
   return (
     <footer className="bg-graphite-900 text-white py-16">
