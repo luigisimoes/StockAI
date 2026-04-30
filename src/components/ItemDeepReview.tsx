@@ -176,11 +176,31 @@ export default function ItemDeepReview({ itemId, onClose }: ItemDeepReviewProps)
 
             {/* ─── Tabs ─── */}
             <Tabs value={activeTab} onValueChange={setActiveTab}>
-              <TabsList>
-                <TabsTrigger value="why">Why this rec?</TabsTrigger>
-                <TabsTrigger value="forecast">Forecast</TabsTrigger>
-                <TabsTrigger value="alternatives">Alternatives</TabsTrigger>
-                <TabsTrigger value="activity">Activity</TabsTrigger>
+              <TabsList className="h-auto p-0 bg-transparent border-b border-graphite-200 rounded-none w-full justify-start gap-6 px-0">
+                <TabsTrigger 
+                  value="why" 
+                  className="px-0 pb-3 pt-2 bg-transparent rounded-none border-b-2 border-transparent data-[state=active]:border-indigo-400 data-[state=active]:text-indigo-500 data-[state=active]:bg-transparent data-[state=active]:shadow-none text-graphite-500 hover:text-graphite-900 font-bold text-sm transition-colors"
+                >
+                  Why this rec?
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="forecast" 
+                  className="px-0 pb-3 pt-2 bg-transparent rounded-none border-b-2 border-transparent data-[state=active]:border-indigo-400 data-[state=active]:text-indigo-500 data-[state=active]:bg-transparent data-[state=active]:shadow-none text-graphite-500 hover:text-graphite-900 font-bold text-sm transition-colors"
+                >
+                  Forecast
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="alternatives" 
+                  className="px-0 pb-3 pt-2 bg-transparent rounded-none border-b-2 border-transparent data-[state=active]:border-indigo-400 data-[state=active]:text-indigo-500 data-[state=active]:bg-transparent data-[state=active]:shadow-none text-graphite-500 hover:text-graphite-900 font-bold text-sm transition-colors"
+                >
+                  Alternatives
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="activity" 
+                  className="px-0 pb-3 pt-2 bg-transparent rounded-none border-b-2 border-transparent data-[state=active]:border-indigo-400 data-[state=active]:text-indigo-500 data-[state=active]:bg-transparent data-[state=active]:shadow-none text-graphite-500 hover:text-graphite-900 font-bold text-sm transition-colors"
+                >
+                  Activity
+                </TabsTrigger>
               </TabsList>
 
               {/* Why Tab — floating cards */}

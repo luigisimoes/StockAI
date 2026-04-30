@@ -30,7 +30,7 @@ export default function ProblemSection() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="bg-white border border-graphite-100 rounded-xl p-6 card-shadow">
             <p className="text-[11px] uppercase tracking-widest font-bold text-graphite-400 mb-2">Persona</p>
-            <h3 className="font-display text-xl font-bold text-graphite-900 mb-1">Maya Rodríguez</h3>
+            <h3 className="font-display text-xl font-bold text-graphite-900 mb-1">Maya Chen</h3>
             <p className="text-sm text-graphite-500 mb-4">Senior Inventory Manager · 8 yrs</p>
             <p className="text-sm text-graphite-700 leading-relaxed">
               1,200 SKUs, 8 warehouses, 8 years on the job. Got burned in 2023 when an AI tool told her to buy six months of summer dresses in October. The Excel sheet she built that weekend is still her source of truth.
