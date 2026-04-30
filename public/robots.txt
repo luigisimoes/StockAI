@@ -1,5 +1,6 @@
 User-agent: *
 Allow: /
 Disallow: /app
+Disallow: /lofi-export
 
 Sitemap: https://stock-ai-henna.vercel.app/sitemap.xml
