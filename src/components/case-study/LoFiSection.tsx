@@ -27,7 +27,23 @@ export default function LoFiSection() {
               <span className="text-[10px] text-graphite-400 font-mono ml-2">Dashboard wireframe</span>
             </div>
 
-            <div className="bg-graphite-50/50 p-4 flex gap-4 min-h-[420px]">
+            {/* Mobile fallback — under 768px */}
+            <div className="md:hidden bg-graphite-50/50 px-6 py-12 flex flex-col items-center justify-center text-center">
+              <div className="w-12 h-12 rounded-xl bg-white border border-graphite-200 flex items-center justify-center mb-4 card-shadow">
+                <svg className="w-6 h-6 text-graphite-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <rect x="2" y="4" width="20" height="14" rx="2" />
+                  <line x1="8" y1="20" x2="16" y2="20" />
+                  <line x1="12" y1="18" x2="12" y2="20" />
+                </svg>
+              </div>
+              <p className="text-sm font-bold text-graphite-900 mb-1">Wide layout, desktop only</p>
+              <p className="text-[12px] text-graphite-500 leading-relaxed max-w-[280px]">
+                The dashboard wireframe is built for wide screens. Open at 768px+ to see the sidebar, stat cards, and rec table layout.
+              </p>
+            </div>
+
+            {/* Desktop wireframe — at 768px+ */}
+            <div className="hidden md:flex bg-graphite-50/50 p-4 gap-4 min-h-[420px]">
               {/* Sidebar */}
               <div className="w-32 bg-white border border-graphite-200 rounded-lg p-3 flex-shrink-0 space-y-2">
                 <div className="h-6 bg-graphite-200 rounded" />
