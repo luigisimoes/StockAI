@@ -9,6 +9,12 @@ import { toast } from 'sonner';
 import AskAiPanel from './AskAiPanel';
 import DismissReasonPopover from './DismissReasonPopover';
 
+const FORECAST_CHART = {
+  MAX_HEIGHT_PX: 120,
+  MIN_BAR_HEIGHT_PX: 4,
+  PEAK_WINDOW_SIZE: 2,
+} as const;
+
 interface ItemDeepReviewProps {
   itemId: number;
   onClose: () => void;
@@ -321,8 +327,8 @@ export default function ItemDeepReview({ itemId, onClose }: ItemDeepReviewProps)
                         {rec.forecastDays.map((val, i) => {
                           const maxVal = Math.max(...rec.forecastDays.filter(v => v > 0), 1);
                           const peak = rec.forecastDays.indexOf(Math.max(...rec.forecastDays));
-                          const isPeak = i >= Math.max(0, peak - 2) && i <= Math.min(13, peak + 2);
-                          const heightPx = Math.max((val / maxVal) * 120, 4);
+                          const isPeak = i >= Math.max(0, peak - FORECAST_CHART.PEAK_WINDOW_SIZE) && i <= Math.min(13, peak + FORECAST_CHART.PEAK_WINDOW_SIZE);
+                          const heightPx = Math.max((val / maxVal) * FORECAST_CHART.MAX_HEIGHT_PX, FORECAST_CHART.MIN_BAR_HEIGHT_PX);
                           
                           return (
                             <div key={i} className="flex-1 h-full flex flex-col justify-end items-center gap-1">

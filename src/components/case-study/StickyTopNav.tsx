@@ -42,21 +42,24 @@ export default function StickyTopNav() {
         : 'bg-white/0 border-b border-transparent'
       }
     `}>
-      <div className="max-w-[1200px] mx-auto px-6 h-16 flex items-center justify-between">
-        <Link to="/" className="flex items-center gap-2">
+      <div className="max-w-[1200px] mx-auto px-4 md:px-6 h-14 md:h-16 flex items-center justify-between gap-3">
+        {/* Logo — always visible */}
+        <Link to="/" className="flex items-center gap-2 shrink-0">
           <div className="w-7 h-7 rounded-lg bg-graphite-900 flex items-center justify-center">
             <span className="text-indigo-300 text-sm font-bold font-display">S</span>
           </div>
-          <span className="text-sm font-bold text-graphite-900">StockAI Case Study</span>
+          <span className="text-sm font-bold text-graphite-900 hidden sm:inline">StockAI Case Study</span>
+          <span className="text-sm font-bold text-graphite-900 sm:hidden">StockAI</span>
         </Link>
 
-        <nav className="hidden md:flex items-center gap-1">
+        {/* Anchor nav — hidden under md, scrollable horizontal between md and lg */}
+        <nav className="hidden md:flex items-center gap-1 overflow-x-auto" aria-label="Section navigation">
           {sections.map((s) => (
             <a
               key={s.id}
               href={`#${s.id}`}
               className={`
-                px-3 py-1.5 text-[12px] font-medium rounded-lg transition-colors
+                px-3 py-1.5 text-[12px] font-medium rounded-lg transition-colors whitespace-nowrap
                 ${activeSection === s.id 
                   ? 'text-indigo-500 bg-indigo-50' 
                   : 'text-graphite-600 hover:text-graphite-900 hover:bg-graphite-50'
@@ -68,12 +71,23 @@ export default function StickyTopNav() {
           ))}
         </nav>
 
+        {/* CTA — always visible, responsive text */}
         <Link 
           to="/app"
-          className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-indigo-400 text-white text-[12px] font-bold hover:bg-indigo-500 active:scale-[0.98] shadow-sm hover:shadow-md transition-all"
+          className="
+            inline-flex items-center gap-1.5
+            px-3 py-2 rounded-lg
+            bg-indigo-400 text-white
+            text-[11px] md:text-[12px] font-bold
+            hover:bg-indigo-500 active:scale-[0.98]
+            shadow-sm hover:shadow-md
+            transition-all
+            shrink-0
+          "
         >
           <Sparkles className="w-3.5 h-3.5" strokeWidth={2} />
-          <span>Live Prototype</span>
+          <span className="hidden sm:inline">Live Prototype</span>
+          <span className="sm:hidden">Live</span>
           <ExternalLink className="w-3 h-3" strokeWidth={2} />
         </Link>
       </div>

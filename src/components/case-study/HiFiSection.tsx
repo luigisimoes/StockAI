@@ -4,8 +4,8 @@ import { ExternalLink, Maximize2 } from 'lucide-react';
 
 export default function HiFiSection() {
   return (
-    <section id="hi-fi" className="py-20 bg-gradient-to-b from-indigo-50/30 via-white to-white">
-      <div className="max-w-[1200px] mx-auto px-6">
+    <section id="hi-fi" className="py-16 md:py-20 bg-gradient-to-b from-indigo-50/30 via-white to-white">
+      <div className="max-w-[1200px] mx-auto px-4 md:px-6">
         <div className="max-w-[900px] mx-auto mb-10">
           <p className="text-[11px] uppercase tracking-widest font-bold text-indigo-500 mb-4">
             05 · Hi-fi UI · Live prototype
@@ -13,7 +13,7 @@ export default function HiFiSection() {
           <h2 className="font-display text-3xl md:text-4xl font-bold text-graphite-900 mb-6 leading-tight">
             Built it. It works. Try it.
           </h2>
-          <p className="text-lg text-graphite-700 leading-relaxed font-medium mb-2">
+          <p className="text-base md:text-lg text-graphite-700 leading-relaxed font-medium mb-2">
             Below is the actual production build, not a Figma prototype. Click any rec, open the drawer, talk to the co-pilot, drag the slider, approve. Built with React, Tailwind, shadcn, deployed on Vercel.
           </p>
           <p className="text-[13px] text-graphite-500 font-mono">
@@ -39,7 +39,7 @@ export default function HiFiSection() {
           </Link>
         </div>
 
-        <div className="relative rounded-2xl overflow-hidden border border-graphite-200 shadow-2xl shadow-indigo-400/10 bg-graphite-50 h-[820px]">
+        <div className="relative rounded-xl md:rounded-2xl overflow-hidden border border-graphite-200 shadow-2xl shadow-indigo-400/10 bg-graphite-50 h-[500px] sm:h-[600px] md:h-[820px]">
           <div className="bg-graphite-100 border-b border-graphite-200 px-4 py-2.5 flex items-center gap-2">
             <div className="flex gap-1.5">
               <div className="w-2.5 h-2.5 rounded-full bg-rose-300" />

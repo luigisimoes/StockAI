@@ -242,11 +242,15 @@ export default function AskAiPanel({ recId, activeTab }: AskAiPanelProps) {
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && handleSubmit()}
                 disabled={isThinking || isStreaming}
+                maxLength={500}
+                autoComplete="off"
+                spellCheck="false"
               />
               <button
                 onClick={handleSubmit}
                 disabled={!input.trim() || isThinking || isStreaming}
                 className="w-7 h-7 rounded-md bg-indigo-400 flex items-center justify-center hover:bg-indigo-500 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+                aria-label="Send message"
               >
                 <Send className="w-3.5 h-3.5 text-white" strokeWidth={2} />
               </button>
