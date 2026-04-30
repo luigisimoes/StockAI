@@ -10,7 +10,7 @@ import {
   HelpCircle,
   ArrowLeft,
 } from 'lucide-react';
-import { cn } from '../lib/utils';
+import { cn } from '@/lib/utils';
 import { Tooltip, TooltipTrigger, TooltipContent } from '@/components/ui/tooltip';
 
 interface SidebarProps {

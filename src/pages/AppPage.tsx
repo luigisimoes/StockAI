@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
-import Layout from '../components/Layout';
-import ReplenishmentView from '../components/ReplenishmentView';
-import ItemDeepReview from '../components/ItemDeepReview';
-import BulkApproveDialog from '../components/BulkApproveDialog';
+import Layout from '@/components/app/layout/Layout';
+import ReplenishmentView from '@/components/app/dashboard/ReplenishmentView';
+import ItemDeepReview from '@/components/app/drawer/ItemDeepReview';
+import BulkApproveDialog from '@/components/app/dialogs/BulkApproveDialog';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { useStore } from '@/lib/store';
 

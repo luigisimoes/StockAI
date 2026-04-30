@@ -1,5 +1,5 @@
 import React from 'react';
-import ExpandableSection from './ExpandableSection';
+import ExpandableSection from './shared/ExpandableSection';
 
 const principles = [
   { n: '01', title: 'Show the work', desc: 'Every rec carries its signals, constraints, and past comparisons up front.' },

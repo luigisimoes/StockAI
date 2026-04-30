@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import ExpandableSection from './ExpandableSection';
-import Lightbox from './Lightbox';
+import ExpandableSection from './shared/ExpandableSection';
+import Lightbox from './shared/Lightbox';
 
 const issues = [
   { n: 1, severity: 'high', title: 'No visible "why" behind recs', screen: 'Step 2', desc: 'The AI proposes +480 units. Zero supporting signals. Maya has nothing to evaluate.' },

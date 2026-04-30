@@ -1,5 +1,5 @@
 import React from 'react';
-import ExpandableSection from './ExpandableSection';
+import ExpandableSection from './shared/ExpandableSection';
 import { TrendingDown, TrendingUp, Clock } from 'lucide-react';
 
 const benchmarks = [

@@ -6,8 +6,8 @@ import { cn } from '@/lib/utils';
 import { recommendations } from '@/lib/mock-data';
 import { useStore } from '@/lib/store';
 import { toast } from 'sonner';
-import AskAiPanel from './AskAiPanel';
-import DismissReasonPopover from './DismissReasonPopover';
+import AskAiPanel from '@/components/app/ai-copilot/AskAiPanel';
+import DismissReasonPopover from '@/components/app/dialogs/DismissReasonPopover';
 
 const FORECAST_CHART = {
   MAX_HEIGHT_PX: 120,
