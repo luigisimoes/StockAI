@@ -5,6 +5,10 @@ import { ArrowRight, Sparkles } from 'lucide-react';
 /**
  * Hero section of the case study site.
  *
+ * Apple-style wide hero: the cover image bleeds edge-to-edge with no
+ * frame, rounded corners, or shadow — deeply integrated into the page
+ * so it feels like part of the surface rather than a boxed asset.
+ *
  * Sets up the narrative arc: 4-day Foundey challenge, single-feature
  * redesign, transparent AI co-pilot. Below the meta strip sits a Loom
  * video slot (placeholder until recording is ready).
@@ -14,10 +18,32 @@ import { ArrowRight, Sparkles } from 'lucide-react';
  */
 export default function HeroSection() {
   return (
-    <section className="relative pt-24 md:pt-32 pb-16 md:pb-24 overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-indigo-50/40 via-white to-white -z-10" />
-      
-      <div className="max-w-[900px] mx-auto px-4 md:px-6 text-center">
+    <section className="relative pb-16 md:pb-24 overflow-hidden">
+
+      {/* Edge-to-edge cover image — Apple-style, no frame */}
+      <div
+        className="relative w-full mt-6 md:mt-10"
+        style={{ animation: 'heroFadeIn 0.8s ease-out both' }}
+      >
+        <img
+          src="/hero-foundey.png"
+          alt="StockAI Replenishment – Foundey Senior PD Challenge cover showing laptop mockup with the live prototype interface"
+          className="w-full h-auto block"
+          loading="eager"
+          fetchPriority="high"
+        />
+        {/* Bottom gradient bleed — dissolves image into white content area */}
+        <div className="absolute inset-x-0 bottom-0 h-32 md:h-48 bg-gradient-to-t from-white via-white/80 to-transparent pointer-events-none" />
+      </div>
+
+      <style>{`
+        @keyframes heroFadeIn {
+          from { opacity: 0; transform: translateY(16px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+      `}</style>
+
+      <div className="relative -mt-8 md:-mt-16 max-w-[900px] mx-auto px-4 md:px-6 text-center">
         <div className="inline-flex items-center gap-1.5 bg-indigo-50 text-indigo-500 px-3 py-1 rounded-full border border-indigo-100 mb-5 md:mb-6">
           <Sparkles className="w-3 h-3" strokeWidth={2} />
           <span className="text-[10px] font-bold uppercase tracking-widest">Foundey · Senior PD Challenge</span>
