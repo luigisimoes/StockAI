@@ -1,5 +1,6 @@
 import { Minus, Plus, Rocket } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { Slider } from '@/components/ui/slider';
 
 interface Props {
   units: number;
@@ -65,13 +66,12 @@ export default function DrawerFooter({ units, setUnits, baseUnits, isOverstock, 
           <span className="text-[10px] font-bold text-graphite-400 uppercase tracking-widest">Impact range</span>
           <span className="text-[11px] font-bold text-indigo-400 tabular-nums">{units > 0 ? '+' : ''}{units.toLocaleString()} units {units === baseUnits ? '(optimal)' : ''}</span>
         </div>
-        <input
-          type="range"
-          className="w-full h-1.5 bg-graphite-100 rounded-lg appearance-none cursor-pointer accent-indigo-400"
-          value={isOverstock ? Math.abs(units) : units}
+        <Slider
+          value={[isOverstock ? Math.abs(units) : units]}
           max={Math.abs(baseUnits) * 2}
-          min={isOverstock ? 10 : 10}
-          onChange={(e) => setUnits(isOverstock ? -Number(e.target.value) : Number(e.target.value))}
+          min={10}
+          step={10}
+          onValueChange={([v]) => setUnits(isOverstock ? -v : v)}
         />
       </div>
 

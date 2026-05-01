@@ -13,8 +13,8 @@ import { ArrowRight, Sparkles } from 'lucide-react';
  * CTAs on narrow viewports. Desktop scales up aggressively.
  *
  * Sets up the narrative arc: 4-day Foundey challenge, single-feature
- * redesign, transparent AI co-pilot. Below the meta strip sits a Loom
- * video slot (placeholder until recording is ready).
+ * redesign, transparent AI co-pilot. Below the meta strip sits the
+ * embedded Loom walkthrough (2-minute video demo).
  */
 export default function HeroSection() {
   return (
@@ -95,26 +95,17 @@ export default function HeroSection() {
       {/* Loom video slot */}
       <div className="max-w-[860px] mx-auto mt-10 md:mt-16 px-4 md:px-6">
         <p className="text-[10px] uppercase tracking-widest font-bold text-indigo-500 text-center mb-3">
-          90-second walkthrough
+          2-minute walkthrough
         </p>
         <div className="relative rounded-xl md:rounded-2xl overflow-hidden bg-graphite-900 shadow-xl shadow-indigo-400/10 aspect-video">
-          <div className="absolute inset-0 flex flex-col items-center justify-center text-white px-4">
-            <div className="w-12 h-12 md:w-16 md:h-16 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center mb-3 md:mb-4 border border-white/20">
-              <svg className="w-5 h-5 md:w-7 md:h-7 ml-0.5 md:ml-1" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-            </div>
-            <p className="text-xs md:text-sm font-medium text-white/80 text-center">Loom walkthrough coming soon</p>
-            <p className="text-[10px] md:text-[11px] text-white/40 font-mono mt-1">90 seconds · live demo</p>
-          </div>
-
-          {/* WHEN LOOM IS READY: uncomment this and remove placeholder above
           <iframe
-            src="https://www.loom.com/embed/YOUR_LOOM_ID_HERE"
-            title="StockAI Replenishment 90-second walkthrough"
+            src="https://www.loom.com/embed/7693c96cd9354d1a898c84a49b594678"
+            title="StockAI Replenishment – 2-minute walkthrough"
             frameBorder="0"
+            allow="fullscreen"
             allowFullScreen
             className="absolute inset-0 w-full h-full"
           />
-          */}
         </div>
       </div>
     </section>
