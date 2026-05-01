@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ExternalLink, Maximize2 } from 'lucide-react';
+import { ExternalLink, Maximize2, Figma } from 'lucide-react';
 
 /**
- * Hi-fi section — embeds the actual deployed product as an iframe.
+ * Hi-fi section ï¿½ embeds the actual deployed product as an iframe.
  *
  * The iframe loads `/app` with sandbox restrictions for security.
  * Browser chrome mockup (traffic light dots + URL bar) frames the embed
@@ -85,6 +85,19 @@ export default function HiFiSection() {
                 <p className="text-[13px] text-graphite-700 leading-relaxed">{item.tip}</p>
               </div>
             ))}
+          </div>
+
+          <div className="flex justify-center pt-6">
+            <a
+              href="https://www.figma.com/design/g1jMxBZGvVClAoaPfN4O7O/StockAI-Replenishment-%E2%80%94-Foundey-Senior-PD-Challenge?node-id=20-2328&m=dev"
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-1.5 px-4 py-2.5 bg-white border border-graphite-200 rounded-lg text-sm font-bold text-graphite-700 hover:bg-graphite-50 hover:border-graphite-300 transition-colors card-shadow"
+            >
+              <Figma className="w-3.5 h-3.5" strokeWidth={2} />
+              <span>Open the hi-fi designs in Figma</span>
+              <ExternalLink className="w-3 h-3" strokeWidth={2} />
+            </a>
           </div>
         </div>
       </div>

@@ -50,7 +50,7 @@ export default function UserFlowSection() {
 
         <div className="flex justify-center pt-4">
           <a
-            href="https://www.figma.com/board/REPLACE_WITH_FIGJAM_LINK"
+            href="https://www.figma.com/board/EYJhP2XZEb3YX2tSeMXxdE/StockAI-Replenishment-%E2%80%94-Foundey-Senior-PD-Challenge?node-id=0-1"
             target="_blank"
             rel="noreferrer"
             className="inline-flex items-center gap-1.5 px-4 py-2.5 bg-white border border-graphite-200 rounded-lg text-sm font-bold text-graphite-700 hover:bg-graphite-50 hover:border-graphite-300 transition-colors card-shadow"

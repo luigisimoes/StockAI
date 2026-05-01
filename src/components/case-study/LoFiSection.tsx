@@ -1,4 +1,5 @@
 import React from 'react';
+import { ExternalLink, Figma } from 'lucide-react';
 import ExpandableSection from './shared/ExpandableSection';
 
 /**
@@ -290,6 +291,19 @@ export default function LoFiSection() {
             <li>· The AI panel sits inline. Not a popup, not an overlay. Maya never has to dismiss it.</li>
             <li>· The decision footer is sticky. Adjust + slider + Approve are always one glance away.</li>
           </ul>
+        </div>
+
+        <div className="flex justify-center pt-6">
+          <a
+            href="https://www.figma.com/design/g1jMxBZGvVClAoaPfN4O7O/StockAI-Replenishment-%E2%80%94-Foundey-Senior-PD-Challenge?node-id=23-3690&m=dev"
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-1.5 px-4 py-2.5 bg-white border border-graphite-200 rounded-lg text-sm font-bold text-graphite-700 hover:bg-graphite-50 hover:border-graphite-300 transition-colors card-shadow"
+          >
+            <Figma className="w-3.5 h-3.5" strokeWidth={2} />
+            <span>Open the lo-fi wireframes in Figma</span>
+            <ExternalLink className="w-3 h-3" strokeWidth={2} />
+          </a>
         </div>
       </div>
     </ExpandableSection>
