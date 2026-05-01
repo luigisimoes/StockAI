@@ -9,20 +9,20 @@ import { ArrowRight, Sparkles } from 'lucide-react';
  * frame, rounded corners, or shadow — deeply integrated into the page
  * so it feels like part of the surface rather than a boxed asset.
  *
+ * Mobile-first responsive: tighter spacing, smaller typography, stacked
+ * CTAs on narrow viewports. Desktop scales up aggressively.
+ *
  * Sets up the narrative arc: 4-day Foundey challenge, single-feature
  * redesign, transparent AI co-pilot. Below the meta strip sits a Loom
  * video slot (placeholder until recording is ready).
- *
- * Typography scales aggressively across breakpoints (3xl to 6xl) to
- * preserve impact at every screen width.
  */
 export default function HeroSection() {
   return (
-    <section className="relative pb-16 md:pb-24 overflow-hidden">
+    <section className="relative pb-12 md:pb-24 overflow-hidden">
 
       {/* Edge-to-edge cover image — Apple-style, no frame */}
       <div
-        className="relative w-full mt-6 md:mt-10"
+        className="relative w-full mt-4 md:mt-10"
         style={{ animation: 'heroFadeIn 0.8s ease-out both' }}
       >
         <img
@@ -33,7 +33,7 @@ export default function HeroSection() {
           fetchPriority="high"
         />
         {/* Bottom gradient bleed — dissolves image into white content area */}
-        <div className="absolute inset-x-0 bottom-0 h-32 md:h-48 bg-gradient-to-t from-white via-white/80 to-transparent pointer-events-none" />
+        <div className="absolute inset-x-0 bottom-0 h-24 md:h-48 bg-gradient-to-t from-white via-white/80 to-transparent pointer-events-none" />
       </div>
 
       <style>{`
@@ -43,57 +43,57 @@ export default function HeroSection() {
         }
       `}</style>
 
-      <div className="relative -mt-8 md:-mt-16 max-w-[900px] mx-auto px-4 md:px-6 text-center">
-        <div className="inline-flex items-center gap-1.5 bg-indigo-50 text-indigo-500 px-3 py-1 rounded-full border border-indigo-100 mb-5 md:mb-6">
-          <Sparkles className="w-3 h-3" strokeWidth={2} />
-          <span className="text-[10px] font-bold uppercase tracking-widest">Foundey · Senior PD Challenge</span>
+      <div className="relative -mt-4 md:-mt-16 max-w-[900px] mx-auto px-4 md:px-6 text-center">
+        <div className="inline-flex items-center gap-1 md:gap-1.5 bg-indigo-50 text-indigo-500 px-2.5 py-0.5 md:px-3 md:py-1 rounded-full border border-indigo-100 mb-4 md:mb-6">
+          <Sparkles className="w-2.5 h-2.5 md:w-3 md:h-3" strokeWidth={2} />
+          <span className="text-[9px] md:text-[10px] font-bold uppercase tracking-widest">Foundey · Senior PD Challenge</span>
         </div>
 
-        <h1 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-graphite-900 leading-[1.1] md:leading-[1.05] mb-5 md:mb-6">
+        <h1 className="font-display text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold text-graphite-900 leading-[1.15] md:leading-[1.05] mb-4 md:mb-6">
           Replenishment that <br className="hidden sm:inline" />explains itself.
         </h1>
 
-        <p className="text-base md:text-lg lg:text-xl text-graphite-600 leading-relaxed max-w-[680px] mx-auto mb-8 md:mb-10 font-medium">
+        <p className="text-sm md:text-lg lg:text-xl text-graphite-600 leading-relaxed max-w-[680px] mx-auto mb-6 md:mb-10 font-medium">
           Four days. One feature redesigned end to end. The brief asked for a transfer wizard; I delivered a co-pilot that shows its work, so an inventory manager can approve the call without leaving the page.
         </p>
 
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-2.5 md:gap-3">
           <Link
             to="/app"
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-indigo-400 text-white text-sm font-bold hover:bg-indigo-500 active:scale-[0.98] shadow-lg shadow-indigo-400/20 transition-all"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 md:px-6 md:py-3 rounded-xl bg-indigo-400 text-white text-sm font-bold hover:bg-indigo-500 active:scale-[0.98] shadow-lg shadow-indigo-400/20 transition-all"
           >
-            <Sparkles className="w-4 h-4" strokeWidth={2} />
+            <Sparkles className="w-3.5 h-3.5 md:w-4 md:h-4" strokeWidth={2} />
             <span>Open Live Prototype</span>
-            <ArrowRight className="w-4 h-4" strokeWidth={2} />
+            <ArrowRight className="w-3.5 h-3.5 md:w-4 md:h-4" strokeWidth={2} />
           </Link>
           <a
             href="#problem"
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-white text-graphite-700 text-sm font-semibold border border-graphite-200 hover:border-graphite-300 hover:bg-graphite-50 transition-all"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-2.5 md:px-5 md:py-3 rounded-xl bg-white text-graphite-700 text-sm font-semibold border border-graphite-200 hover:border-graphite-300 hover:bg-graphite-50 transition-all"
           >
             <span>Read the case study</span>
           </a>
         </div>
 
-        <div className="flex items-center justify-center gap-4 md:gap-6 mt-10 md:mt-12 text-[10px] md:text-[11px] uppercase tracking-widest font-bold text-graphite-400">
+        <div className="flex items-center justify-center gap-3 md:gap-6 mt-8 md:mt-12 text-[9px] md:text-[11px] uppercase tracking-widest font-bold text-graphite-400">
           <div className="flex flex-col items-center gap-0.5">
-            <span className="text-graphite-900 text-sm md:text-base font-display">Senior PD</span>
+            <span className="text-graphite-900 text-xs md:text-base font-display">Senior PD</span>
             <span>Role</span>
           </div>
-          <div className="w-px h-7 md:h-8 bg-graphite-200" />
+          <div className="w-px h-6 md:h-8 bg-graphite-200" />
           <div className="flex flex-col items-center gap-0.5">
-            <span className="text-graphite-900 text-sm md:text-base font-display">4 days</span>
+            <span className="text-graphite-900 text-xs md:text-base font-display">4 days</span>
             <span>Timeline</span>
           </div>
-          <div className="w-px h-7 md:h-8 bg-graphite-200" />
+          <div className="w-px h-6 md:h-8 bg-graphite-200" />
           <div className="flex flex-col items-center gap-0.5">
-            <span className="text-graphite-900 text-sm md:text-base font-display">Solo</span>
+            <span className="text-graphite-900 text-xs md:text-base font-display">Solo</span>
             <span>PM + PD</span>
           </div>
         </div>
       </div>
 
       {/* Loom video slot */}
-      <div className="max-w-[860px] mx-auto mt-12 md:mt-16 px-4 md:px-6">
+      <div className="max-w-[860px] mx-auto mt-10 md:mt-16 px-4 md:px-6">
         <p className="text-[10px] uppercase tracking-widest font-bold text-indigo-500 text-center mb-3">
           90-second walkthrough
         </p>
