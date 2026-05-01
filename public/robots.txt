@@ -4,4 +4,4 @@ Disallow: /app
 Disallow: /lofi-export
 Disallow: /flow-export
 
-Sitemap: https://stock-ai-henna.vercel.app/sitemap.xml
+Sitemap: https://stockai-luigi.com/sitemap.xml

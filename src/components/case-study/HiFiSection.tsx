@@ -35,7 +35,7 @@ export default function HiFiSection() {
               <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
               <span className="text-[10px] font-bold uppercase tracking-widest">Live</span>
             </div>
-            <p className="text-[12px] text-graphite-500 font-mono">stockai-replen.vercel.app/app</p>
+            <p className="text-[12px] text-graphite-500 font-mono">stockai-luigi.com/app</p>
           </div>
           <Link
             to="/app"
@@ -56,7 +56,7 @@ export default function HiFiSection() {
             </div>
             <div className="flex-1 flex justify-center">
               <div className="bg-white px-3 py-0.5 rounded-md text-[11px] text-graphite-500 font-mono border border-graphite-200">
-                stockai-replen.vercel.app/app
+                stockai-luigi.com/app
               </div>
             </div>
           </div>

@@ -2,7 +2,7 @@
 
 > **A Senior Product Designer challenge for [Foundey](https://foundey.notion.site/StockAI-Senior-PD-Role-2ce63a9715d281eba97ff4b51db980af).** Four days. One feature redesigned end to end. Solo PM and design.
 
-[![Live](https://img.shields.io/badge/Live-stockai--replen.vercel.app-5FA8D3?style=flat-square&logo=vercel)](https://stock-ai-henna.vercel.app)
+[![Live](https://img.shields.io/badge/Live-stockai--luigi.com-5FA8D3?style=flat-square&logo=vercel)](https://stockai-luigi.com)
 [![Built with React 19](https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react)](https://react.dev)
 [![Tailwind v4](https://img.shields.io/badge/Tailwind-v4-06B6D4?style=flat-square&logo=tailwindcss)](https://tailwindcss.com)
 [![License: MIT](https://img.shields.io/badge/License-MIT-graphite?style=flat-square)](LICENSE)
@@ -28,7 +28,7 @@ The original StockAI flow walked users through three screens to approve one reco
 
 The brief: redesign the replenishment feature. The thesis: make AI recommendations transparent enough to approve in 90 seconds, not spreadsheet hours.
 
-Read the full case study at [stockai-replen.vercel.app](https://stock-ai-henna.vercel.app).
+Read the full case study at [stockai-luigi.com](https://stockai-luigi.com).
 
 ## Tech stack
 
